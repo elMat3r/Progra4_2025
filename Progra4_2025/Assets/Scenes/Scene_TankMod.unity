@@ -1424,6 +1424,21 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9231e7581554a3d4e80f4c114f0fb617, type: 2}
   - {fileID: 11400000, guid: 0de106c3beb3fe547a31605f3c21b1ab, type: 2}
   - {fileID: 11400000, guid: b8c87f7c02435ba439f39394ecd29eca, type: 2}
+  OnTankPieceChangeEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 870551298}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: OnTankPieceChange
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &502911768
 Transform:
   m_ObjectHideFlags: 0
@@ -2320,6 +2335,104 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 844170446}
   m_CullTransparentMesh: 1
+--- !u!1 &870551297
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 870551299}
+  - component: {fileID: 870551298}
+  - component: {fileID: 870551300}
+  - component: {fileID: 870551301}
+  m_Layer: 0
+  m_Name: Player
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &870551298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 870551297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d41fc3b2aed4bd46a2976ab2e8d2d8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movement: {fileID: 870551300}
+  currentStats: []
+  piece_Light: {r: 0, g: 0, b: 0, a: 0}
+  piece_Track: {fileID: 11400000, guid: 7212ae7a7d3b837479ea4e5adf440fd7, type: 2}
+  piece_Hull: {fileID: 11400000, guid: f0197c53fb000e94d9b89a0408ae0db4, type: 2}
+  piece_Tower: {fileID: 0}
+  piece_Gun: {fileID: 0}
+  piece_GunConnector: {fileID: 0}
+  piece_Projectile: {fileID: 0}
+--- !u!4 &870551299
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 870551297}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.08, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5821221057246373375}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &870551300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 870551297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfee457e83f7a8d499996270f425f07a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  moveSpd: 5
+  rotateSpd: 200
+--- !u!50 &870551301
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 870551297}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1001 &953959160
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4866,8 +4979,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6419668348947913028}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.08, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4876,7 +4989,7 @@ Transform:
   - {fileID: 4452758894770455467}
   - {fileID: 4706968929196216970}
   - {fileID: 6703192629129738470}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 870551299}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &5893547362732078356
 PrefabInstance:
@@ -5115,8 +5228,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5821221057246373375}
   - component: {fileID: 6419668348947913030}
-  - component: {fileID: 6419668348947913031}
-  - component: {fileID: 6419668348947913032}
   m_Layer: 0
   m_Name: TankVisual
   m_TagString: Untagged
@@ -5143,48 +5254,6 @@ MonoBehaviour:
   sprite_Tower: {fileID: 7343441447267089024}
   sprite_Gun: {fileID: 4434768025359054300}
   sprite_GunConnector: {fileID: 5286224717373214545}
---- !u!114 &6419668348947913031
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6419668348947913028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfee457e83f7a8d499996270f425f07a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  moveSpd: 5
-  rotateSpd: 100
---- !u!50 &6419668348947913032
-Rigidbody2D:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6419668348947913028}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!4 &6703192629129738470
 Transform:
   m_ObjectHideFlags: 0
@@ -5372,5 +5441,5 @@ SceneRoots:
   - {fileID: 663116879}
   - {fileID: 1173064344}
   - {fileID: 1548364299}
-  - {fileID: 5821221057246373375}
+  - {fileID: 870551299}
   - {fileID: 502911768}
