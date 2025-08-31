@@ -16,6 +16,14 @@ public class Player : MonoBehaviour
     public TankPieceScriptable piece_GunConnector;
     public TankPieceScriptable piece_Projectile;
 
+    [Header("TankStats")]
+    public StatInfo stat_Spd;
+    public StatInfo stat_RootSpd;
+    public StatInfo stat_Attack;
+    public StatInfo stat_Defense;
+    public StatInfo stat_Life;
+    public StatInfo stat_BulletSpd;
+
     private void Start()
     {
         UpdateControllersWithTankPieces();
@@ -147,6 +155,30 @@ public class Player : MonoBehaviour
                 break;
             case TankPieceType.Projectile:
                 piece_Projectile = newPiece;
+                break;
+        }
+    }
+    public void OnTankPieceStats(StatInfo newStat)
+    {
+        switch (newStat.type)
+        {
+            case StatType.Spd:
+                stat_Spd = newStat;
+                break;
+            case StatType.RootSpd:
+                stat_RootSpd = newStat;
+                break;
+            case StatType.Attack:
+                stat_Attack = newStat;
+                break;
+            case StatType.Defense:
+                stat_Defense = newStat;
+                break;
+            case StatType.Life:
+                stat_Life = newStat;
+                break;
+            case StatType.BulletSpd:
+                stat_BulletSpd = newStat;
                 break;
         }
     }
