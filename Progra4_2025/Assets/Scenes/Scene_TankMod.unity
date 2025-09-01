@@ -2375,6 +2375,24 @@ MonoBehaviour:
   piece_Gun: {fileID: 0}
   piece_GunConnector: {fileID: 0}
   piece_Projectile: {fileID: 0}
+  stat_Spd:
+    type: 0
+    value: 0
+  stat_RootSpd:
+    type: 0
+    value: 0
+  stat_Attack:
+    type: 0
+    value: 0
+  stat_Defense:
+    type: 0
+    value: 0
+  stat_Life:
+    type: 0
+    value: 0
+  stat_BulletSpd:
+    type: 0
+    value: 0
 --- !u!4 &870551299
 Transform:
   m_ObjectHideFlags: 0
@@ -3964,7 +3982,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 534523403}
   m_Direction: 2
   m_Value: 1.000001
-  m_Size: 0.81815696
+  m_Size: 0.8148756
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
