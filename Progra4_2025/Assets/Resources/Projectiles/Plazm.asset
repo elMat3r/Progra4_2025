@@ -15,4 +15,10 @@ MonoBehaviour:
   id: Plazm
   pieceType: 6
   pieceSprite: {fileID: 21300000, guid: 5deff0a435f7aff43be451055a5d555d, type: 3}
-  statInfo: []
+  statInfo:
+  - type: 0
+    value: 1
+  - type: 1
+    value: 2
+  - type: 2
+    value: 3

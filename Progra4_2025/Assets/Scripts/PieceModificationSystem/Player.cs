@@ -182,4 +182,24 @@ public class Player : MonoBehaviour
                 break;
         }
     }
+    public void UpdateStats()
+    {
+        List<StatInfo> statsInfo = new List<StatInfo>();
+
+        foreach (var item in currentStats)
+        {
+            StatInfo currentStat = statsInfo.Find(x => x.type == item.type);
+            if (currentStat != null)
+            {
+                currentStat.value += item.value;
+            }
+            else
+            {
+                StatInfo newInfo = new StatInfo();
+                newInfo.type = item.type;
+                newInfo.value = item.value;
+                statsInfo.Add(newInfo);
+            }
+        }
+    }
 }
