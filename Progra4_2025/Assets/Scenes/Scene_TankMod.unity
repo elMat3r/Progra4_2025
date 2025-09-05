@@ -2368,14 +2368,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movement: {fileID: 870551300}
+  shootingSystem: {fileID: 870551302}
+  bulletDmg: {fileID: 3962730516013961861, guid: a48e2d98841a47841a807c54adaca273, type: 3}
   currentStats: []
+  spriteModifier: {fileID: 6419668348947913030}
   piece_Light: {r: 0, g: 0, b: 0, a: 0}
   piece_Track: {fileID: 11400000, guid: 7212ae7a7d3b837479ea4e5adf440fd7, type: 2}
   piece_Hull: {fileID: 11400000, guid: f0197c53fb000e94d9b89a0408ae0db4, type: 2}
-  piece_Tower: {fileID: 0}
-  piece_Gun: {fileID: 0}
-  piece_GunConnector: {fileID: 0}
-  piece_Projectile: {fileID: 0}
+  piece_Tower: {fileID: 11400000, guid: e7fbc0e66763d2649a779a1848d000be, type: 2}
+  piece_Gun: {fileID: 11400000, guid: acdf0ed0da20c4d4c9a321cc412cfbbb, type: 2}
+  piece_GunConnector: {fileID: 11400000, guid: 5485e71fb8774654590470ba9b0c7d01, type: 2}
+  piece_Projectile: {fileID: 11400000, guid: 0de3442bb3d75ee44aada71819d12685, type: 2}
   stat_Spd:
     type: 0
     value: 0
@@ -2394,6 +2397,9 @@ MonoBehaviour:
   stat_BulletSpd:
     type: 0
     value: 0
+  playerName: 
+  currentDmg: 0
+  points: 0
 --- !u!4 &870551299
 Transform:
   m_ObjectHideFlags: 0
@@ -4032,8 +4038,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 534523404}
   m_HandleRect: {fileID: 534523403}
   m_Direction: 2
-  m_Value: 1.0000004
-  m_Size: 0.7275103
+  m_Value: 1
+  m_Size: 0.6297218
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

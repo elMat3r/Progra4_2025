@@ -32,7 +32,10 @@ public class Shooting_System : MonoBehaviour
     }
     private void Update()
     {
-        Shoot();
+        if (m_attackAction.WasPerformedThisFrame())
+        {
+            Shoot();
+        }
     }
     public void Shoot()
     {

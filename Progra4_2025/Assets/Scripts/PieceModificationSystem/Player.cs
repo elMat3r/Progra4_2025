@@ -5,7 +5,11 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] Movement movement;
+    [SerializeField] Shooting_System shootingSystem;
+    [SerializeField] Bullet bulletDmg;
     public List<StatInfo> currentStats = new List<StatInfo>();
+
+    public TankSpriteModifier spriteModifier;
 
     [Header("TankPieces")]
     public Color piece_Light;
@@ -24,9 +28,26 @@ public class Player : MonoBehaviour
     public StatInfo stat_Life;
     public StatInfo stat_BulletSpd;
 
+    public string playerName;
+    public int currentDmg;
+    public int points;
+
     private void Start()
     {
+        
         UpdateControllersWithTankPieces();
+       
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            SaveData();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            LoadData();
+        }
     }
     public void OnTankPieceChange(TankPieceScriptable newPiece)
     {
@@ -68,66 +89,66 @@ public class Player : MonoBehaviour
                 statsInfo.Add(newInfo);
             }
         }
-        //foreach (var item in piece_Tower.statInfo)
-        //{
-        //    StatInfo currentStat = statsInfo.Find(x => x.type == item.type);
-        //    if (currentStat != null)
-        //    {
-        //        currentStat.value += item.value;
-        //    }
-        //    else
-        //    {
-        //        StatInfo newInfo = new StatInfo();
-        //        newInfo.type = item.type;
-        //        newInfo.value = item.value;
-        //        statsInfo.Add(newInfo);
-        //    }
-        //}
-        //foreach (var item in piece_Gun.statInfo)
-        //{
-        //    StatInfo currentStat = statsInfo.Find(x => x.type == item.type);
-        //    if (currentStat != null)
-        //    {
-        //        currentStat.value += item.value;
-        //    }
-        //    else
-        //    {
-        //        StatInfo newInfo = new StatInfo();
-        //        newInfo.type = item.type;
-        //        newInfo.value = item.value;
-        //        statsInfo.Add(newInfo);
-        //    }
-        //}
-        //foreach (var item in piece_GunConnector.statInfo)
-        //{
-        //    StatInfo currentStat = statsInfo.Find(x => x.type == item.type);
-        //    if (currentStat != null)
-        //    {
-        //        currentStat.value += item.value;
-        //    }
-        //    else
-        //    {
-        //        StatInfo newInfo = new StatInfo();
-        //        newInfo.type = item.type;
-        //        newInfo.value = item.value;
-        //        statsInfo.Add(newInfo);
-        //    }
-        //}
-        //foreach (var item in piece_Projectile.statInfo)
-        //{
-        //    StatInfo currentStat = statsInfo.Find(x => x.type == item.type);
-        //    if (currentStat != null)
-        //    {
-        //        currentStat.value += item.value;
-        //    }
-        //    else
-        //    {
-        //        StatInfo newInfo = new StatInfo();
-        //        newInfo.type = item.type;
-        //        newInfo.value = item.value;
-        //        statsInfo.Add(newInfo);
-        //    }
-        //}
+        foreach (var item in piece_Tower.statInfo)
+        {
+            StatInfo currentStat = statsInfo.Find(x => x.type == item.type);
+            if (currentStat != null)
+            {
+                currentStat.value += item.value;
+            }
+            else
+            {
+                StatInfo newInfo = new StatInfo();
+                newInfo.type = item.type;
+                newInfo.value = item.value;
+                statsInfo.Add(newInfo);
+            }
+        }
+        foreach (var item in piece_Gun.statInfo)
+        {
+            StatInfo currentStat = statsInfo.Find(x => x.type == item.type);
+            if (currentStat != null)
+            {
+                currentStat.value += item.value;
+            }
+            else
+            {
+                StatInfo newInfo = new StatInfo();
+                newInfo.type = item.type;
+                newInfo.value = item.value;
+                statsInfo.Add(newInfo);
+            }
+        }
+        foreach (var item in piece_GunConnector.statInfo)
+        {
+            StatInfo currentStat = statsInfo.Find(x => x.type == item.type);
+            if (currentStat != null)
+            {
+                currentStat.value += item.value;
+            }
+            else
+            {
+                StatInfo newInfo = new StatInfo();
+                newInfo.type = item.type;
+                newInfo.value = item.value;
+                statsInfo.Add(newInfo);
+            }
+        }
+        foreach (var item in piece_Projectile.statInfo)
+        {
+            StatInfo currentStat = statsInfo.Find(x => x.type == item.type);
+            if (currentStat != null)
+            {
+                currentStat.value += item.value;
+            }
+            else
+            {
+                StatInfo newInfo = new StatInfo();
+                newInfo.type = item.type;
+                newInfo.value = item.value;
+                statsInfo.Add(newInfo);
+            }
+        }
         currentStats = statsInfo;
     }
 
@@ -158,51 +179,78 @@ public class Player : MonoBehaviour
                 break;
         }
     }
-    //public void OnTankPieceStats(StatInfo newStat)
-    //{
-    //    foreach (var item in currentStats)
-    //    {
-    //        switch (newStat.type)
-    //        {
-    //            case StatType.Spd:
-    //                stat_Spd = newStat;
-    //                break;
-    //            case StatType.RootSpd:
-    //                stat_RootSpd = newStat;
-    //                break;
-    //            case StatType.Attack:
-    //                stat_Attack = newStat;
-    //                break;
-    //            case StatType.Defense:
-    //                stat_Defense = newStat;
-    //                break;
-    //            case StatType.Life:
-    //                stat_Life = newStat;
-    //                break;
-    //            case StatType.BulletSpd:
-    //                stat_BulletSpd = newStat;
-    //                break;
-    //        }
-    //    }
-    //}
-    //public void UpdateStats()
-    //{
-    //    List<StatInfo> statsInfo = new List<StatInfo>();
+    public void OnTankPieceStats()
+    {
+        foreach (var item in currentStats)
+        {
+            switch (item.type)
+            {
+                case StatType.Spd:
+                    movement.moveSpd = item.value;
+                    break;
+                case StatType.RootSpd:
+                    movement.rotateSpd = item.value;
+                    break;
+                case StatType.Attack:
+                    bulletDmg.dmg = item.value;
+                    break;
+                //case StatType.Defense:
+                //    stat_Defense = newStat;
+                //    break;
+                //case StatType.Life:
+                //    stat_Life = newStat;
+                //    break;
+                case StatType.BulletSpd:
+                    shootingSystem.bulletSpd = item.value;
+                    break;
+            }
+        }
+    }
 
-    //    foreach (var item in currentStats)
-    //    {
-    //        StatInfo currentStat = statsInfo.Find(x => x.type == item.type);
-    //        if (currentStat != null)
-    //        {
-    //            currentStat.value += item.value;
-    //        }
-    //        else
-    //        {
-    //            StatInfo newInfo = new StatInfo();
-    //            newInfo.type = item.type;
-    //            newInfo.value = item.value;
-    //            statsInfo.Add(newInfo);
-    //        }
-    //    }
-    //}
+    void LoadData()
+    {
+        LoadSaveSystem loadSave = new LoadSaveSystem();
+        PlayerDataInfo playerData = loadSave.LoadPlayerInfo();
+
+        playerName = playerData.playerName;
+        currentDmg = playerData.currentDmg;
+        points = playerData.score;
+
+        LoadResources loadResources = new LoadResources();
+
+        piece_Track = loadResources.GetTankPieceScriptable(TankPieceType.Track, playerData.piecesName[0]);
+        piece_Hull = loadResources.GetTankPieceScriptable(TankPieceType.Hull, playerData.piecesName[1]);
+        piece_Tower = loadResources.GetTankPieceScriptable(TankPieceType.Tower, playerData.piecesName[2]);
+        piece_Gun = loadResources.GetTankPieceScriptable(TankPieceType.Gun, playerData.piecesName[3]);
+        piece_GunConnector = loadResources.GetTankPieceScriptable(TankPieceType.GunConnector, playerData.piecesName[4]);
+        piece_Projectile = loadResources.GetTankPieceScriptable(TankPieceType.Projectile, playerData.piecesName[5]);
+
+        spriteModifier.ChangeSprite(piece_Track.pieceType, piece_Track.pieceSprite);
+        spriteModifier.ChangeSprite(piece_Hull.pieceType, piece_Hull.pieceSprite);
+        spriteModifier.ChangeSprite(piece_Tower.pieceType, piece_Tower.pieceSprite);
+        spriteModifier.ChangeSprite(piece_Gun.pieceType, piece_Gun.pieceSprite);
+        spriteModifier.ChangeSprite(piece_GunConnector.pieceType, piece_GunConnector.pieceSprite);
+        spriteModifier.ChangeSprite(piece_Projectile.pieceType, piece_Projectile.pieceSprite);
+
+        UpdateControllersWithTankPieces();
+    }
+    void SaveData()
+    {
+        PlayerDataInfo playerData = new PlayerDataInfo();
+
+        playerData.playerName = playerName;
+        playerData.currentDmg = currentDmg;
+        playerData.score = points;
+
+        playerData.piecesName = new List<string>();
+        playerData.piecesName.Add(piece_Track.id);
+        playerData.piecesName.Add(piece_Hull.id);
+        playerData.piecesName.Add(piece_Tower.id);
+        playerData.piecesName.Add(piece_Gun.id);
+        playerData.piecesName.Add(piece_GunConnector.id);
+        playerData.piecesName.Add(piece_Projectile.id);
+
+        LoadSaveSystem loadSave = new LoadSaveSystem();
+        loadSave.SavePlayerInfo(playerData);
+    }
 }
