@@ -50,7 +50,6 @@ public class Movement : MonoBehaviour
         if(m_moveAim.x != 0)
         {
             float rotationAmount = -m_moveAim.x * rotateSpd * Time.deltaTime;
-            //Quaternion deltaRotation = Quaternion.Euler(rotationAmount, 0, 0);
             transform.Rotate(0, 0, rotationAmount);
         }
     }

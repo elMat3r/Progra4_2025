@@ -68,66 +68,66 @@ public class Player : MonoBehaviour
                 statsInfo.Add(newInfo);
             }
         }
-        foreach (var item in piece_Tower.statInfo)
-        {
-            StatInfo currentStat = statsInfo.Find(x => x.type == item.type);
-            if (currentStat != null)
-            {
-                currentStat.value += item.value;
-            }
-            else
-            {
-                StatInfo newInfo = new StatInfo();
-                newInfo.type = item.type;
-                newInfo.value = item.value;
-                statsInfo.Add(newInfo);
-            }
-        }
-        foreach (var item in piece_Gun.statInfo)
-        {
-            StatInfo currentStat = statsInfo.Find(x => x.type == item.type);
-            if (currentStat != null)
-            {
-                currentStat.value += item.value;
-            }
-            else
-            {
-                StatInfo newInfo = new StatInfo();
-                newInfo.type = item.type;
-                newInfo.value = item.value;
-                statsInfo.Add(newInfo);
-            }
-        }
-        foreach (var item in piece_GunConnector.statInfo)
-        {
-            StatInfo currentStat = statsInfo.Find(x => x.type == item.type);
-            if (currentStat != null)
-            {
-                currentStat.value += item.value;
-            }
-            else
-            {
-                StatInfo newInfo = new StatInfo();
-                newInfo.type = item.type;
-                newInfo.value = item.value;
-                statsInfo.Add(newInfo);
-            }
-        }
-        foreach (var item in piece_Projectile.statInfo)
-        {
-            StatInfo currentStat = statsInfo.Find(x => x.type == item.type);
-            if (currentStat != null)
-            {
-                currentStat.value += item.value;
-            }
-            else
-            {
-                StatInfo newInfo = new StatInfo();
-                newInfo.type = item.type;
-                newInfo.value = item.value;
-                statsInfo.Add(newInfo);
-            }
-        }
+        //foreach (var item in piece_Tower.statInfo)
+        //{
+        //    StatInfo currentStat = statsInfo.Find(x => x.type == item.type);
+        //    if (currentStat != null)
+        //    {
+        //        currentStat.value += item.value;
+        //    }
+        //    else
+        //    {
+        //        StatInfo newInfo = new StatInfo();
+        //        newInfo.type = item.type;
+        //        newInfo.value = item.value;
+        //        statsInfo.Add(newInfo);
+        //    }
+        //}
+        //foreach (var item in piece_Gun.statInfo)
+        //{
+        //    StatInfo currentStat = statsInfo.Find(x => x.type == item.type);
+        //    if (currentStat != null)
+        //    {
+        //        currentStat.value += item.value;
+        //    }
+        //    else
+        //    {
+        //        StatInfo newInfo = new StatInfo();
+        //        newInfo.type = item.type;
+        //        newInfo.value = item.value;
+        //        statsInfo.Add(newInfo);
+        //    }
+        //}
+        //foreach (var item in piece_GunConnector.statInfo)
+        //{
+        //    StatInfo currentStat = statsInfo.Find(x => x.type == item.type);
+        //    if (currentStat != null)
+        //    {
+        //        currentStat.value += item.value;
+        //    }
+        //    else
+        //    {
+        //        StatInfo newInfo = new StatInfo();
+        //        newInfo.type = item.type;
+        //        newInfo.value = item.value;
+        //        statsInfo.Add(newInfo);
+        //    }
+        //}
+        //foreach (var item in piece_Projectile.statInfo)
+        //{
+        //    StatInfo currentStat = statsInfo.Find(x => x.type == item.type);
+        //    if (currentStat != null)
+        //    {
+        //        currentStat.value += item.value;
+        //    }
+        //    else
+        //    {
+        //        StatInfo newInfo = new StatInfo();
+        //        newInfo.type = item.type;
+        //        newInfo.value = item.value;
+        //        statsInfo.Add(newInfo);
+        //    }
+        //}
         currentStats = statsInfo;
     }
 
@@ -158,48 +158,51 @@ public class Player : MonoBehaviour
                 break;
         }
     }
-    public void OnTankPieceStats(StatInfo newStat)
-    {
-        switch (newStat.type)
-        {
-            case StatType.Spd:
-                stat_Spd = newStat;
-                break;
-            case StatType.RootSpd:
-                stat_RootSpd = newStat;
-                break;
-            case StatType.Attack:
-                stat_Attack = newStat;
-                break;
-            case StatType.Defense:
-                stat_Defense = newStat;
-                break;
-            case StatType.Life:
-                stat_Life = newStat;
-                break;
-            case StatType.BulletSpd:
-                stat_BulletSpd = newStat;
-                break;
-        }
-    }
-    public void UpdateStats()
-    {
-        List<StatInfo> statsInfo = new List<StatInfo>();
+    //public void OnTankPieceStats(StatInfo newStat)
+    //{
+    //    foreach (var item in currentStats)
+    //    {
+    //        switch (newStat.type)
+    //        {
+    //            case StatType.Spd:
+    //                stat_Spd = newStat;
+    //                break;
+    //            case StatType.RootSpd:
+    //                stat_RootSpd = newStat;
+    //                break;
+    //            case StatType.Attack:
+    //                stat_Attack = newStat;
+    //                break;
+    //            case StatType.Defense:
+    //                stat_Defense = newStat;
+    //                break;
+    //            case StatType.Life:
+    //                stat_Life = newStat;
+    //                break;
+    //            case StatType.BulletSpd:
+    //                stat_BulletSpd = newStat;
+    //                break;
+    //        }
+    //    }
+    //}
+    //public void UpdateStats()
+    //{
+    //    List<StatInfo> statsInfo = new List<StatInfo>();
 
-        foreach (var item in currentStats)
-        {
-            StatInfo currentStat = statsInfo.Find(x => x.type == item.type);
-            if (currentStat != null)
-            {
-                currentStat.value += item.value;
-            }
-            else
-            {
-                StatInfo newInfo = new StatInfo();
-                newInfo.type = item.type;
-                newInfo.value = item.value;
-                statsInfo.Add(newInfo);
-            }
-        }
-    }
+    //    foreach (var item in currentStats)
+    //    {
+    //        StatInfo currentStat = statsInfo.Find(x => x.type == item.type);
+    //        if (currentStat != null)
+    //        {
+    //            currentStat.value += item.value;
+    //        }
+    //        else
+    //        {
+    //            StatInfo newInfo = new StatInfo();
+    //            newInfo.type = item.type;
+    //            newInfo.value = item.value;
+    //            statsInfo.Add(newInfo);
+    //        }
+    //    }
+    //}
 }

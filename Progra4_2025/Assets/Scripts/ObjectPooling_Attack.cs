@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Attack : MonoBehaviour
+public class ObjectPooling_Attack : MonoBehaviour
 {
     [SerializeField] private GameObject prefab;
     [SerializeField] private int maxQuantity;
