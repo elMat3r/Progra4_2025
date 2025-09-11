@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
     public StatInfo stat_Life;
     public StatInfo stat_BulletSpd;
 
+    [Header("PlayerSave&Load")]
     public string playerName;
     public int currentDmg;
     public int points;
@@ -51,10 +52,35 @@ public class Player : MonoBehaviour
     }
     public void OnTankPieceChange(TankPieceScriptable newPiece)
     {
-        Debug.Log("Tank piece changed" + newPiece.pieceType);
-        Debug.Log("Tank piece changed" + newPiece.id);
+        switch (newPiece.pieceType)
+        {
+            case TankPieceType.Light:
+                Debug.Log("Aura Farming");
+                break;
+            case TankPieceType.Track:
+                piece_Track = newPiece;
+                break;
+            case TankPieceType.Hull:
+                piece_Hull = newPiece;
+                break;
+            case TankPieceType.Tower:
+                piece_Tower = newPiece;
+                break;
+            case TankPieceType.Gun:
+                piece_Gun = newPiece;
+                break;
+            case TankPieceType.GunConnector:
+                piece_GunConnector = newPiece;
+                break;
+            case TankPieceType.Projectile:
+                piece_Projectile = newPiece;
+                break;
+            default:
+                break;
+        }
+        //Debug.Log("Tank piece changed" + newPiece.pieceType);
+        //Debug.Log("Tank piece changed" + newPiece.id);
     }
-
     public void UpdateControllersWithTankPieces()
     {
         List<StatInfo> statsInfo = new List<StatInfo>();
