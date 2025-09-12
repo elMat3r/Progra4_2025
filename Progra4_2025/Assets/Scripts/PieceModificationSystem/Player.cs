@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using NUnit.Framework;
+using TMPro;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -10,6 +10,11 @@ public class Player : MonoBehaviour
     public List<StatInfo> currentStats = new List<StatInfo>();
 
     public TankSpriteModifier spriteModifier;
+    public Canvas canvasPanelStore;
+
+    [Header("PlayerText")]
+    [SerializeField] TMP_InputField inputField;
+    public TextMeshProUGUI tankTextName;
 
     [Header("TankPieces")]
     public Color piece_Light;
@@ -32,23 +37,22 @@ public class Player : MonoBehaviour
     public string playerName;
     public int currentDmg;
     public int points;
-
+    private void Awake()
+    {
+        inputField.onValueChanged.AddListener(ChangeName);
+    }
     private void Start()
     {
-        
         UpdateControllersWithTankPieces();
-       
     }
-    private void Update()
+    //private void Update()
+    //{
+        
+    //}
+    public void ChangeName(string name)
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            SaveData();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            LoadData();
-        }
+        playerName = name;
+        tankTextName.text = name;
     }
     public void OnTankPieceChange(TankPieceScriptable newPiece)
     {
@@ -78,8 +82,7 @@ public class Player : MonoBehaviour
             default:
                 break;
         }
-        //Debug.Log("Tank piece changed" + newPiece.pieceType);
-        //Debug.Log("Tank piece changed" + newPiece.id);
+        UpdateControllersWithTankPieces();
     }
     public void UpdateControllersWithTankPieces()
     {
@@ -176,8 +179,8 @@ public class Player : MonoBehaviour
             }
         }
         currentStats = statsInfo;
+        OnTankPieceStats();
     }
-
     public void OnTankOieceChange(TankPieceScriptable newPiece)
     {
         switch (newPiece.pieceType)
@@ -232,13 +235,12 @@ public class Player : MonoBehaviour
             }
         }
     }
-
-    void LoadData()
+    public void LoadData()
     {
         LoadSaveSystem loadSave = new LoadSaveSystem();
         PlayerDataInfo playerData = loadSave.LoadPlayerInfo();
 
-        playerName = playerData.playerName;
+        ChangeName(playerData.playerName);
         currentDmg = playerData.currentDmg;
         points = playerData.score;
 
@@ -260,7 +262,7 @@ public class Player : MonoBehaviour
 
         UpdateControllersWithTankPieces();
     }
-    void SaveData()
+    public void SaveData()
     {
         PlayerDataInfo playerData = new PlayerDataInfo();
 
