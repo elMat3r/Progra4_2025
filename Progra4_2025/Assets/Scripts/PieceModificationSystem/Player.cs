@@ -10,7 +10,6 @@ public class Player : MonoBehaviour
     public List<StatInfo> currentStats = new List<StatInfo>();
 
     public TankSpriteModifier spriteModifier;
-    public Canvas canvasPanelStore;
 
     [Header("PlayerText")]
     [SerializeField] TMP_InputField inputField;
@@ -44,11 +43,8 @@ public class Player : MonoBehaviour
     private void Start()
     {
         UpdateControllersWithTankPieces();
+        LoadData();
     }
-    //private void Update()
-    //{
-        
-    //}
     public void ChangeName(string name)
     {
         playerName = name;
