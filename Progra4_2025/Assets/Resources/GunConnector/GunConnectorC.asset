@@ -16,9 +16,5 @@ MonoBehaviour:
   pieceType: 5
   pieceSprite: {fileID: 21300000, guid: 7f2347a43a312f34196dd2688bcb4f66, type: 3}
   statInfo:
-  - type: 0
-    value: 1
-  - type: 1
-    value: 2
   - type: 2
     value: 3

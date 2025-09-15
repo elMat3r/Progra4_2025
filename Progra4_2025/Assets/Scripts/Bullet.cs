@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float dmg;
+    public float bulletDmg;
     private void OnCollisionEnter(Collision collision)
     {
         gameObject.SetActive(false);

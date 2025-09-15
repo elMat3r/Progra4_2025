@@ -4,15 +4,16 @@ using UnityEngine.InputSystem;
 
 public class Shooting_System : MonoBehaviour
 {
+    [Header("InputSystem")]
     public InputActionAsset inputActions;
-
     private InputAction m_attackAction;
 
-
+    [Header("Bullet")]
     public Transform spawnPoint;
     public float bulletSpd;
     public GameObject bulletPrefab;
 
+    [Header("ObjectPooling")]
     public int maxQuantity;
     private int index;
     public Transform poolingParent;
@@ -57,7 +58,7 @@ public class Shooting_System : MonoBehaviour
     }
     public GameObject InstantiateBullet(Vector3 pos, Vector3 dir, float spd)
     {
-        GameObject newObj = Instantiate(bulletPrefab, pos, Quaternion.identity, poolingParent);
+        GameObject newObj = Instantiate(bulletPrefab, pos, Quaternion.identity);
         newObj.GetComponent<Rigidbody2D>().linearVelocity = dir * spd;
         return newObj;
     }

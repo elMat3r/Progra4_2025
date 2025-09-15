@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [Header("Clases")]
     [SerializeField] Movement movement;
     [SerializeField] Shooting_System shootingSystem;
     [SerializeField] Bullet bulletDmg;
-    public List<StatInfo> currentStats = new List<StatInfo>();
-
     public TankSpriteModifier spriteModifier;
+    public List<StatInfo> currentStats = new List<StatInfo>();
 
     [Header("PlayerText")]
     [SerializeField] TMP_InputField inputField;
@@ -39,6 +39,10 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         inputField.onValueChanged.AddListener(ChangeName);
+    }
+    private void Update()
+    {
+        Debug.Log(piece_Light);
     }
     private void Start()
     {
@@ -217,7 +221,7 @@ public class Player : MonoBehaviour
                     movement.rotateSpd = item.value;
                     break;
                 case StatType.Attack:
-                    bulletDmg.dmg = item.value;
+                    bulletDmg.bulletDmg = item.value;
                     break;
                 //case StatType.Defense:
                 //    stat_Defense = newStat;

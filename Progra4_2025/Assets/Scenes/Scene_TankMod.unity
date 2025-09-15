@@ -3371,9 +3371,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 870551299}
+  - component: {fileID: 870551301}
   - component: {fileID: 870551298}
   - component: {fileID: 870551300}
-  - component: {fileID: 870551301}
   - component: {fileID: 870551302}
   m_Layer: 0
   m_Name: Player
@@ -3397,8 +3397,8 @@ MonoBehaviour:
   movement: {fileID: 870551300}
   shootingSystem: {fileID: 870551302}
   bulletDmg: {fileID: 3962730516013961861, guid: a48e2d98841a47841a807c54adaca273, type: 3}
-  currentStats: []
   spriteModifier: {fileID: 6419668348947913030}
+  currentStats: []
   inputField: {fileID: 2084250790}
   tankTextName: {fileID: 1733257688}
   piece_Light: {r: 0, g: 0, b: 0, a: 0}
