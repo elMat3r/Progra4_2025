@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     [SerializeField] Movement movement;
     [SerializeField] Shooting_System shootingSystem;
     [SerializeField] Bullet bulletDmg;
+    //[SerializeField] TurretRotation turretRotation;
     public TankSpriteModifier spriteModifier;
     public List<StatInfo> currentStats = new List<StatInfo>();
 
