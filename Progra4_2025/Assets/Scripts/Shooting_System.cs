@@ -60,6 +60,7 @@ public class Shooting_System : MonoBehaviour
     {
         GameObject newObj = Instantiate(bulletPrefab, pos, Quaternion.identity);
         newObj.GetComponent<Rigidbody2D>().linearVelocity = dir * spd;
+        newObj.GetComponent<Rigidbody2D>().transform.up = pos;
         return newObj;
     }
 }

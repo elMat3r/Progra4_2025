@@ -8,13 +8,14 @@ public class Player : MonoBehaviour
     [SerializeField] Movement movement;
     [SerializeField] Shooting_System shootingSystem;
     [SerializeField] Bullet bulletDmg;
-    //[SerializeField] TurretRotation turretRotation;
+    [SerializeField] TurretRotation turretRotation;
     public TankSpriteModifier spriteModifier;
     public List<StatInfo> currentStats = new List<StatInfo>();
 
     [Header("PlayerText")]
-    [SerializeField] TMP_InputField inputField;
     public TextMeshProUGUI tankTextName;
+    public TextMeshProUGUI tankTextNameWorld;
+
 
     [Header("TankPieces")]
     public Color piece_Light;
@@ -38,10 +39,7 @@ public class Player : MonoBehaviour
     public string playerName;
     public int currentDmg;
     public int points;
-    private void Awake()
-    {
-        inputField.onValueChanged.AddListener(ChangeName);
-    }
+    
     private void Start()
     {
         UpdateControllersWithTankPieces();
@@ -51,6 +49,7 @@ public class Player : MonoBehaviour
     {
         playerName = name;
         tankTextName.text = name;
+        tankTextNameWorld.text = name;
     }
     public void OnTankPieceChange(TankPieceScriptable newPiece)
     {
@@ -194,6 +193,7 @@ public class Player : MonoBehaviour
                     break;
                 case StatType.RootSpd:
                     movement.rotateSpd = item.value;
+                    turretRotation.rotateSpd = item.value;
                     break;
                 case StatType.Attack:
                     bulletDmg.bulletDmg = item.value;

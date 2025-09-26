@@ -1,6 +1,9 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 
 public class PlayerPieceModifierMain : MonoBehaviour
 {
@@ -18,13 +21,20 @@ public class PlayerPieceModifierMain : MonoBehaviour
     [SerializeField] List<TankPieceScriptable> tpiece_Tracks;
     [SerializeField] List<TankPieceScriptable> tpiece_Projectiles;
 
+    [Header("Texts")]
+    [SerializeField] TMP_InputField inputField;
+
     public UnityEvent<TankPieceScriptable> OnTankPieceChangeEvent;
     public UnityEvent<Color> OnTankPieceChangeColorEvent;
+    public UnityEvent<string> OnInputFieldChangeEvent;
     private void Start()
     {
         panelPieceTypeSelection.OnButtonSelectPartType(TankPieceType.Hull);
     }
-
+    private void Awake()
+    {
+        inputField.onValueChanged.AddListener(OnInputFieldNameChange);
+    }
     public void OnPieceTypeSelected(TankPieceType pieceType)
     {
         if(pieceType == TankPieceType.Light)
@@ -58,6 +68,10 @@ public class PlayerPieceModifierMain : MonoBehaviour
         OnTankPieceChangeEvent?.Invoke(tankPiece);
     }
     
+    public void OnInputFieldNameChange(string inputField)
+    {
+        OnInputFieldChangeEvent?.Invoke(inputField);
+    }
     private List<TankPieceScriptable> GetPiecesByType(TankPieceType pieceType)
     {
         List<TankPieceScriptable> selectedPieces = new List<TankPieceScriptable>();
