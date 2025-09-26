@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
     public TankPieceScriptable piece_Gun;
     public TankPieceScriptable piece_GunConnector;
     public TankPieceScriptable piece_Projectile;
+    public ColorPicker colorPicker;
 
     [Header("TankStats")]
     public StatInfo stat_Spd;
@@ -40,10 +41,6 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         inputField.onValueChanged.AddListener(ChangeName);
-    }
-    private void Update()
-    {
-        Debug.Log(piece_Light);
     }
     private void Start()
     {
@@ -84,6 +81,10 @@ public class Player : MonoBehaviour
                 break;
         }
         UpdateControllersWithTankPieces();
+    }
+    public void OnChangeColorTank(Color tankColor)
+    {
+        piece_Light = tankColor;
     }
     public void UpdateControllersWithTankPieces()
     {
@@ -182,33 +183,6 @@ public class Player : MonoBehaviour
         currentStats = statsInfo;
         OnTankPieceStats();
     }
-    public void OnTankOieceChange(TankPieceScriptable newPiece)
-    {
-        switch (newPiece.pieceType)
-        {
-            case TankPieceType.Light:
-                Debug.Log("Aura Farming");
-                break;
-            case TankPieceType.Track:
-                piece_Track = newPiece;
-                break;
-            case TankPieceType.Hull:
-                piece_Hull = newPiece;
-                break;
-            case TankPieceType.Tower:
-                piece_Tower = newPiece;
-                break;
-            case TankPieceType.Gun:
-                piece_Gun = newPiece;
-                break;
-            case TankPieceType.GunConnector:
-                piece_GunConnector = newPiece;
-                break;
-            case TankPieceType.Projectile:
-                piece_Projectile = newPiece;
-                break;
-        }
-    }
     public void OnTankPieceStats()
     {
         foreach (var item in currentStats)
@@ -253,6 +227,8 @@ public class Player : MonoBehaviour
         piece_Gun = loadResources.GetTankPieceScriptable(TankPieceType.Gun, playerData.piecesName[3]);
         piece_GunConnector = loadResources.GetTankPieceScriptable(TankPieceType.GunConnector, playerData.piecesName[4]);
         piece_Projectile = loadResources.GetTankPieceScriptable(TankPieceType.Projectile, playerData.piecesName[5]);
+        
+        piece_Light = playerData.colorTank;
 
         spriteModifier.ChangeSprite(piece_Track.pieceType, piece_Track.pieceSprite);
         spriteModifier.ChangeSprite(piece_Hull.pieceType, piece_Hull.pieceSprite);
@@ -260,6 +236,7 @@ public class Player : MonoBehaviour
         spriteModifier.ChangeSprite(piece_Gun.pieceType, piece_Gun.pieceSprite);
         spriteModifier.ChangeSprite(piece_GunConnector.pieceType, piece_GunConnector.pieceSprite);
         spriteModifier.ChangeSprite(piece_Projectile.pieceType, piece_Projectile.pieceSprite);
+        spriteModifier.ChangeLightColor(piece_Light);
 
         UpdateControllersWithTankPieces();
     }
@@ -278,6 +255,8 @@ public class Player : MonoBehaviour
         playerData.piecesName.Add(piece_Gun.id);
         playerData.piecesName.Add(piece_GunConnector.id);
         playerData.piecesName.Add(piece_Projectile.id);
+
+        playerData.colorTank = piece_Light;
 
         LoadSaveSystem loadSave = new LoadSaveSystem();
         loadSave.SavePlayerInfo(playerData);

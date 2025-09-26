@@ -19,7 +19,7 @@ public class PlayerPieceModifierMain : MonoBehaviour
     [SerializeField] List<TankPieceScriptable> tpiece_Projectiles;
 
     public UnityEvent<TankPieceScriptable> OnTankPieceChangeEvent;
-
+    public UnityEvent<Color> OnTankPieceChangeColorEvent;
     private void Start()
     {
         panelPieceTypeSelection.OnButtonSelectPartType(TankPieceType.Hull);
@@ -48,6 +48,7 @@ public class PlayerPieceModifierMain : MonoBehaviour
     public void OnChangeColor(Color color)
     {
         tankSpriteModifier.ChangeLightColor(color);
+        OnTankPieceChangeColorEvent?.Invoke(color);
     }
 
     void ModifyPiece(TankPieceScriptable tankPiece)

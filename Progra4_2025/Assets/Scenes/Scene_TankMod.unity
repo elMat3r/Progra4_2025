@@ -1709,6 +1709,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  OnTankPieceChangeColorEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &502911768
 Transform:
   m_ObjectHideFlags: 0
@@ -3408,6 +3411,7 @@ MonoBehaviour:
   piece_Gun: {fileID: 11400000, guid: acdf0ed0da20c4d4c9a321cc412cfbbb, type: 2}
   piece_GunConnector: {fileID: 11400000, guid: 5485e71fb8774654590470ba9b0c7d01, type: 2}
   piece_Projectile: {fileID: 11400000, guid: 0de3442bb3d75ee44aada71819d12685, type: 2}
+  colorPicker: {fileID: 1173064346}
   stat_Spd:
     type: 0
     value: 0
