@@ -251,10 +251,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playFabLogIn: {fileID: 1443911215}
+  user: 
   mail: apolo.leyton@zonavirtual.uisek.cl
   password: Aly0106
-  blockPanel: {fileID: 635731561}
+  repeatPassword: 
+  score: 0
+  lifePoints: 0
+  blockPanel: {fileID: 312822278}
+  panels: []
   textFeedback: {fileID: 1213359883}
+  inputFieldMail: {fileID: 0}
+  inputFieldPassword: {fileID: 0}
 --- !u!4 &65506146
 Transform:
   m_ObjectHideFlags: 0
@@ -612,7 +619,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &312822279
 RectTransform:
   m_ObjectHideFlags: 0
@@ -853,7 +860,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 32767
   m_TargetDisplay: 0
 --- !u!224 &364850908
 RectTransform:

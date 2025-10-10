@@ -1,17 +1,21 @@
 using System;
+using System.Collections.Generic;
 using PlayFab;
 using PlayFab.ClientModels;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class PlayFabLogin : MonoBehaviour
 {
     private Action<string, bool> OnFinishActionEvent;
+    private Action<string, bool> OnFinishLoadEvent;
+    private Action<List<LeaderBoardData>> OnFinishLeaderBoardEvent;
     private void OnLoginSuccess(LoginResult result)
     {
         OnFinishActionEvent?.Invoke("Success", true);
+        Debug.Log("Excelente! Creacion exitosa :D");
     }
-
     private void OnLoginFailure(PlayFabError error)
     {
         Debug.LogWarning("Something went wrong with your first API call.  :(");
@@ -20,12 +24,14 @@ public class PlayFabLogin : MonoBehaviour
         OnFinishActionEvent?.Invoke("Success", true);
         //Debug.LogError(error.ErrorMessage.ToString()); //Manda un mensaje de error
     }
+    
     //Funciones de registro
-    public void RegisterUser(string mail, string pass, Action<string, bool> onFinishAction)
+    public void RegisterUser(string userName, string mail, string pass, Action<string, bool> onFinishAction)
     {
         OnFinishActionEvent = onFinishAction;
         var request = new RegisterPlayFabUserRequest
         {
+            Username = userName,
             Email = mail,
             Password = pass,
             RequireBothUsernameAndEmail = false
@@ -40,6 +46,8 @@ public class PlayFabLogin : MonoBehaviour
     private void OnError(PlayFabError error)
     {
         Debug.LogWarning(error.GenerateErrorReport());
+        Debug.LogError("Failure");
+        Debug.LogError(error.GenerateErrorReport());
         OnFinishActionEvent?.Invoke(error.GenerateErrorReport(), false);
     }
     public void LogInUser(string mail, string pass, Action<string, bool> onFinishAction)
@@ -50,9 +58,9 @@ public class PlayFabLogin : MonoBehaviour
             Email = mail,
             Password = pass
         };
-        PlayFabClientAPI.LoginWithEmailAddress(request, OnLogInSuccess, OnError);
+        PlayFabClientAPI.LoginWithEmailAddress(request, OnLogInResult, OnError);
     }
-    private void OnLogInSuccess(LoginResult result)
+    private void OnLogInResult(LoginResult result)
     {
         Debug.Log("Log in succesful !");
         OnFinishActionEvent?.Invoke("Success", true);
@@ -74,5 +82,59 @@ public class PlayFabLogin : MonoBehaviour
             CreateAccount = true
         };
         PlayFabClientAPI.LoginWithCustomID(request, OnLoginSuccess /*action event*/, OnLoginFailure /*funcion si es que no funciona*/);
+    }
+
+    //Recovery Account
+    private void OnRequestSuccess(SendAccountRecoveryEmailResult result)
+    {
+        OnFinishActionEvent?.Invoke("Recovery email sended", true);
+        Debug.Log("Recovery email sended");
+    }
+    public void RecoveryAccount(string email, Action<string, bool> onFinishAction)
+    {
+        OnFinishActionEvent = onFinishAction;
+        var request = new SendAccountRecoveryEmailRequest
+        {
+            Email = email,
+            TitleId = PlayFabSettings.staticSettings.TitleId,
+        };
+        PlayFabClientAPI.SendAccountRecoveryEmail(request, OnRequestSuccess, OnError);
+    }
+
+    //Load&Save
+    public void OnDataSave(UpdateUserDataResult result)
+    {
+        OnFinishLoadEvent = null;
+        OnFinishLoadEvent?.Invoke("Success", true);
+        Debug.Log("Success");
+    }
+    public void LoadDataInfo(string dataKey, Action<string, bool> onFinishLoad)
+    {
+        OnFinishLoadEvent = onFinishLoad;
+        var request = new GetUserDataRequest();
+        PlayFabClientAPI.GetUserData(request, result =>
+        {
+            if (result.Data != null && result.Data.ContainsKey(dataKey))
+            {
+                string data = result.Data[dataKey].Value;
+                OnFinishLoadEvent?.Invoke(data, true);
+            }
+            else
+            {
+                OnFinishLoadEvent?.Invoke(default, false);
+            }
+        }, OnError);
+    }
+    public void SaveDataInfo(string data, string dataKey, Action<string, bool> onFinishLoad)
+    {
+        OnFinishLoadEvent = onFinishLoad;
+        var request = new UpdateUserDataRequest
+        {
+            Data = new Dictionary<string, string>
+            {
+                {dataKey, data },
+            },
+        };
+        PlayFabClientAPI.UpdateUserData(request, OnDataSave, OnError);
     }
 }
