@@ -20,18 +20,17 @@ public class LogIn_Manager : MonoBehaviour
     [SerializeField] GameObject[] panels;
     [SerializeField] TextMeshProUGUI textFeedback;
 
-    [Header("InputFields")]
-    [SerializeField] TMP_InputField inputFieldMail;
-    [SerializeField] TMP_InputField inputFieldPassword;
-    private void Awake()
-    {
-        inputFieldMail.onValueChanged.AddListener(OnChangeUser);
-        inputFieldPassword.onValueChanged.AddListener(OnChangePass);
-    }
+    //[Header("InputFields")]
+    //[SerializeField] TMP_InputField inputFieldMail;
+    //[SerializeField] TMP_InputField inputFieldPassword;
+    //private void Awake()
+    //{
+    //    inputFieldMail.onValueChanged.AddListener(OnChangeUser);
+    //    inputFieldPassword.onValueChanged.AddListener(OnChangePass);
+    //}
     private void Start()
     {
-        SetBlockPanel("Loading...", false);
-        playFabLogIn.LogInUser(mail, password, OnFinishAction);
+        SetPanel(LoginPanelType.Login);
     }
     private void Update()
     {
@@ -87,7 +86,7 @@ public class LogIn_Manager : MonoBehaviour
     }
     public void RecoveryButtonAccess()
     {
-        SetPanel(LoginPanelType.Login);
+        SetPanel(LoginPanelType.Recovery);
     }
 
     //LoginFunctions
