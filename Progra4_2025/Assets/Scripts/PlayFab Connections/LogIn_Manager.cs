@@ -1,6 +1,8 @@
 using UnityEngine;
 using TMPro;
 using System;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class LogIn_Manager : MonoBehaviour
 {
@@ -34,11 +36,11 @@ public class LogIn_Manager : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Alpha1))
+        if (Input.GetKeyUp(KeyCode.Alpha0))
         {
             SavePJData();
         }
-        if (Input.GetKeyUp(KeyCode.Alpha2))
+        if (Input.GetKeyUp(KeyCode.Alpha9))
         {
             LoadPJData();
         }
@@ -71,7 +73,7 @@ public class LogIn_Manager : MonoBehaviour
     }
     public void OnChangeRepeatPassword(string val)
     {
-        password = val;
+        repeatPassword = val;
     }
     public void OnChangeMail(string val)
     {
@@ -93,7 +95,8 @@ public class LogIn_Manager : MonoBehaviour
     public void OnLoginButton()
     {
         SetBlockPanel("Loading...", true);
-        playFabLogIn.LogInUser(user, password, OnFinishAction);
+        playFabLogIn.LogInUser(mail, password, OnFinishAction);
+        SceneManager.LoadScene(1);
     }
 
     //CreateAccountFunctions

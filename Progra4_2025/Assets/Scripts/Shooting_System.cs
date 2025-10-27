@@ -18,7 +18,6 @@ public class Shooting_System : MonoBehaviour
     private int index;
     public Transform poolingParent;
     private List<GameObject> poolingList = new List<GameObject>();
-
     public void OnEnable()
     {
         inputActions.FindActionMap("Player").Enable();

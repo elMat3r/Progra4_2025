@@ -24,6 +24,8 @@ public class PlayFabLogin : MonoBehaviour
         OnFinishActionEvent?.Invoke("Success", true);
         //Debug.LogError(error.ErrorMessage.ToString()); //Manda un mensaje de error
     }
+
+    //public void OnDisplayName(string displayName, )
     
     //Funciones de registro
     public void RegisterUser(string userName, string mail, string pass, Action<string, bool> onFinishAction)
@@ -78,7 +80,7 @@ public class PlayFabLogin : MonoBehaviour
         }
         var request = new LoginWithCustomIDRequest
         {
-            CustomId = "ApoloLeyton",
+            CustomId = System.Guid.NewGuid().ToString(),
             CreateAccount = true
         };
         PlayFabClientAPI.LoginWithCustomID(request, OnLoginSuccess /*action event*/, OnLoginFailure /*funcion si es que no funciona*/);
