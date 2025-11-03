@@ -213,8 +213,12 @@ public class Player : MonoBehaviour
     public void LoadData()
     {
         LoadSaveSystem loadSave = new LoadSaveSystem();
-        PlayerDataInfo playerData = loadSave.LoadPlayerInfo();
+        PlayerDataInfo playerData = loadSave.LoadPlayerInfo(OnEndLoadData);
+    }
 
+    public void OnEndLoadData(PlayerDataInfo playerData)
+    {
+        if (playerData == null) return;
         ChangeName(playerData.playerName);
         currentDmg = playerData.currentDmg;
         points = playerData.score;
@@ -227,7 +231,7 @@ public class Player : MonoBehaviour
         piece_Gun = loadResources.GetTankPieceScriptable(TankPieceType.Gun, playerData.piecesName[3]);
         piece_GunConnector = loadResources.GetTankPieceScriptable(TankPieceType.GunConnector, playerData.piecesName[4]);
         piece_Projectile = loadResources.GetTankPieceScriptable(TankPieceType.Projectile, playerData.piecesName[5]);
-        
+
         piece_Light = playerData.colorTank;
 
         spriteModifier.ChangeSprite(piece_Track.pieceType, piece_Track.pieceSprite);

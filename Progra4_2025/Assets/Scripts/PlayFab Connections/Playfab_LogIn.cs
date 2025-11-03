@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using PlayFab;
 using PlayFab.ClientModels;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
-public class PlayFabLogin : MonoBehaviour
+public class PlayFabLogin
 {
+    LoadSaveSystem loadSaveSystem;
     private Action<string, bool> OnFinishActionEvent;
     private Action<string, bool> OnFinishLoadEvent;
     private Action<List<LeaderBoardData>> OnFinishLeaderBoardEvent;
@@ -66,6 +66,7 @@ public class PlayFabLogin : MonoBehaviour
     {
         Debug.Log("Log in succesful !");
         OnFinishActionEvent?.Invoke("Success", true);
+        SceneManager.LoadScene(1);
     }
     public void LogInAnonymous(Action<string, bool> onFinishAction)
     {
@@ -112,18 +113,17 @@ public class PlayFabLogin : MonoBehaviour
     }
     public void LoadDataInfo(string dataKey, Action<string, bool> onFinishLoad)
     {
-        OnFinishLoadEvent = onFinishLoad;
         var request = new GetUserDataRequest();
         PlayFabClientAPI.GetUserData(request, result =>
         {
             if (result.Data != null && result.Data.ContainsKey(dataKey))
             {
                 string data = result.Data[dataKey].Value;
-                OnFinishLoadEvent?.Invoke(data, true);
+                onFinishLoad?.Invoke(data, true);
             }
             else
             {
-                OnFinishLoadEvent?.Invoke(default, false);
+                onFinishLoad?.Invoke(default, false);
             }
         }, OnError);
     }
