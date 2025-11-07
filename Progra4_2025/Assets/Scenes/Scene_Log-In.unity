@@ -306,6 +306,7 @@ MonoBehaviour:
   - {fileID: 1590573786}
   - {fileID: 2115115904}
   textFeedback: {fileID: 1213359883}
+  leaderBoardData: []
 --- !u!4 &65506146
 Transform:
   m_ObjectHideFlags: 0

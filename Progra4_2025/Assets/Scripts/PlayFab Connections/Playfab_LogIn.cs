@@ -9,7 +9,6 @@ public class PlayFabLogin
 {
     LoadSaveSystem loadSaveSystem;
     private Action<string, bool> OnFinishActionEvent;
-    private Action<string, bool> OnFinishLoadEvent;
     private Action<List<LeaderBoardData>> OnFinishLeaderBoardEvent;
     private void OnLoginSuccess(LoginResult result)
     {
@@ -24,9 +23,6 @@ public class PlayFabLogin
         OnFinishActionEvent?.Invoke("Success", true);
         //Debug.LogError(error.ErrorMessage.ToString()); //Manda un mensaje de error
     }
-
-    //public void OnDisplayName(string displayName, )
-    
     //Funciones de registro
     public void RegisterUser(string userName, string mail, string pass, Action<string, bool> onFinishAction)
     {
@@ -36,6 +32,7 @@ public class PlayFabLogin
             Username = userName,
             Email = mail,
             Password = pass,
+            DisplayName = userName,
             RequireBothUsernameAndEmail = false
         };
         PlayFabClientAPI.RegisterPlayFabUser(request, OnRegisterUserResult, OnError);
@@ -107,8 +104,8 @@ public class PlayFabLogin
     //Load&Save
     public void OnDataSave(UpdateUserDataResult result)
     {
-        OnFinishLoadEvent = null;
-        OnFinishLoadEvent?.Invoke("Success", true);
+        OnFinishActionEvent = null;
+        OnFinishActionEvent?.Invoke("Success", true);
         Debug.Log("Success");
     }
     public void LoadDataInfo(string dataKey, Action<string, bool> onFinishLoad)
@@ -129,7 +126,7 @@ public class PlayFabLogin
     }
     public void SaveDataInfo(string data, string dataKey, Action<string, bool> onFinishLoad)
     {
-        OnFinishLoadEvent = onFinishLoad;
+        OnFinishActionEvent = onFinishLoad;
         var request = new UpdateUserDataRequest
         {
             Data = new Dictionary<string, string>
@@ -138,5 +135,69 @@ public class PlayFabLogin
             },
         };
         PlayFabClientAPI.UpdateUserData(request, OnDataSave, OnError);
+    }
+
+    public void GetDataFromMaxPoints(Action<List<LeaderBoardData>> leaderBoard)
+    {
+        OnFinishLeaderBoardEvent = leaderBoard;
+        var request = new GetLeaderboardRequest
+        {
+            StatisticName = "MaxPoints",   // nombre de tu leaderboard
+            StartPosition = 0,             // posición inicial (0 = primer lugar)
+            MaxResultsCount = 10           // cantidad máxima de resultados
+        };
+        PlayFabClientAPI.GetLeaderboard(request, OnLeaderBoardLoad, OnError);
+    }
+    public void AddDataToMaxPoints(int score, Action<string, bool> onFinishAction)
+    {
+        OnFinishActionEvent = onFinishAction;
+        var request = new UpdatePlayerStatisticsRequest
+        {
+            Statistics = new List<PlayFab.ClientModels.StatisticUpdate>
+            {
+                new StatisticUpdate
+                {
+                    StatisticName = "MaxPoints", // nombre de tu leaderboard
+                    Value = score
+                }
+            }
+        };
+        PlayFabClientAPI.UpdatePlayerStatistics(request, OnStatisticsResult, OnError);
+    }
+    private void OnLeaderBoardLoad(GetLeaderboardResult result)
+    {
+        List<LeaderBoardData> dataList = new List<LeaderBoardData>();
+        foreach (var item in result.Leaderboard)
+        {
+            LeaderBoardData newData = new LeaderBoardData()
+            {
+                displayName = item.DisplayName,
+                score = item.StatValue,
+                boardPos = item.Position
+            };
+            dataList.Add(newData);
+        }
+        OnFinishLeaderBoardEvent?.Invoke(dataList);
+    }
+    public void SetDisplayName(string displayName, Action<string, bool> onFinishAction)
+    {
+        OnFinishActionEvent = onFinishAction;
+        var request = new UpdateUserTitleDisplayNameRequest
+        {
+            DisplayName = displayName,
+        };
+        PlayFabClientAPI.UpdateUserTitleDisplayName(request, OnEndRequestDisplayName, OnError);
+    }
+    private void OnEndRequestDisplayName(UpdateUserTitleDisplayNameResult result)
+    {
+        Debug.Log("Success");
+        OnFinishActionEvent?.Invoke("Success", true);
+        OnFinishActionEvent = null;
+    }
+    private void OnStatisticsResult(UpdatePlayerStatisticsResult result)
+    {
+        Debug.Log("Success");
+        OnFinishActionEvent?.Invoke("Success", true);
+        OnFinishActionEvent = null;
     }
 }

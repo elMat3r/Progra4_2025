@@ -4,7 +4,7 @@ using UnityEngine;
 public class LoadSaveSystem
 {
     string playerInfoDataKey = "PlayerInfo"; //Nombre del archivo que estamos guardando
-    public PlayerDataInfo LoadPlayerInfo(Action<PlayerDataInfo> onEndLoadData)
+    public void LoadPlayerInfo(Action<PlayerDataInfo> onEndLoadData)
     {
         string json = PlayerPrefs.GetString(playerInfoDataKey);
         
@@ -18,14 +18,21 @@ public class LoadSaveSystem
                 json = data;
                 PlayerDataInfo loadData = JsonUtility.FromJson<PlayerDataInfo>(json);
                 onEndLoadData(loadData);
+                Debug.Log("Load Success");
             }
         });
-        return loadData;
     }
     public void SavePlayerInfo(PlayerDataInfo dataToSave)
     {
         string json = JsonUtility.ToJson(dataToSave);
         PlayerPrefs.SetString(playerInfoDataKey, json);
+        PlayFabLogin playFabManager = new PlayFabLogin();
+        playFabManager.SaveDataInfo(json, playerInfoDataKey, OnFinishSave);
         Debug.Log("Save Success");
+    }
+
+    private void OnFinishSave(string arg1, bool arg2)
+    {
+        
     }
 }

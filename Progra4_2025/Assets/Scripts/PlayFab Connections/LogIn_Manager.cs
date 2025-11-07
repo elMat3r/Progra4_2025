@@ -3,6 +3,9 @@ using TMPro;
 using System;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using NUnit.Framework;
+using System.Collections.Generic;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class LogIn_Manager : MonoBehaviour
 {
@@ -21,32 +24,40 @@ public class LogIn_Manager : MonoBehaviour
     [SerializeField] GameObject blockPanel;
     [SerializeField] GameObject[] panels;
     [SerializeField] TextMeshProUGUI textFeedback;
+
+    [Header("Listas")]
+    public List<LeaderBoardData> leaderBoardData;
+    LoginPanelType currentPanel;
     private void Start()
     {
         SetPanel(LoginPanelType.Login);
         playFabLogIn = new PlayFabLogin();
-    }
-    private void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.Alpha0))
-        {
-            SavePJData();
-        }
-        if (Input.GetKeyUp(KeyCode.Alpha9))
-        {
-            LoadPJData();
-        }
     }
     void SetBlockPanel(string message, bool enable)
     {
         textFeedback.text = message;
         blockPanel.SetActive(enable);
     }
-    private void OnFinishAction(string message, bool result)
+    void OnFinishAction(string message, bool result)
     {
-        if(result == true)
+        if (result == true)
         {
             SetBlockPanel(message, false);
+            switch (currentPanel)
+            {
+                case LoginPanelType.Login:
+                    SceneManager.LoadScene(1);
+                    break;
+                case LoginPanelType.Register:
+                    SceneManager.LoadScene(1);
+                    break;
+                case LoginPanelType.Recovery:
+                    SetPanel(LoginPanelType.Login);
+                    break;
+                default:
+                    break;
+            }
+
         }
         else
         {
@@ -54,7 +65,17 @@ public class LogIn_Manager : MonoBehaviour
         }
     }
 
-    //ChangeFunctions
+    ////LeaderBoardFunctions
+    //void LoadLeaderBoard()
+    //{
+    //    playfabLogin.GetDataFromMaxScore(OnEndLoadLeaderBoard);
+    //}
+    //void OnEndLoadLeaderBoard(List<LeaderBoardData> data)
+    //{
+    //    leaderBoardData = data;
+    //}
+
+        //ChangeFunctions
     public void OnChangePass(string val)
     {
         password = val;
@@ -119,6 +140,7 @@ public class LogIn_Manager : MonoBehaviour
             {
                 panels[i].SetActive(false);
             }
+            currentPanel = panelType;
         }
     }
     public void BackButton()
@@ -127,36 +149,36 @@ public class LogIn_Manager : MonoBehaviour
     }
 
     //Load&SaveFunctions
-    private void OnLoadData(string json, bool success)
-    {
-        if (success)
-        {
-            PJData pjData = JsonUtility.FromJson<PJData>(json);
-            score = pjData.score;
-            lifePoints = pjData.lifePoints;
-            SetBlockPanel("Load Success!", false);
-        }
-        else
-        {
-            SetBlockPanel("Sucedio un error en la carga de datos", true);
-        }
-    }
-    private void SavePJData()
-    {
-        PJData pjData = new PJData()
-        {
-            score = score,
-            lifePoints = lifePoints,
-        };
-        string json = JsonUtility.ToJson(pjData);
-        SetBlockPanel("Saving, please don't close the app", true);
-        playFabLogIn.SaveDataInfo(json, "PJInfo", OnFinishAction);
-    }
-    private void LoadPJData()
-    {
-        SetBlockPanel("Loading, please don't close the app", true);
-        playFabLogIn.LoadDataInfo("PJInfo", OnLoadData);
-    }
+    //private void OnLoadData(string json, bool success)
+    //{
+    //    if (success)
+    //    {
+    //        PJData pjData = JsonUtility.FromJson<PJData>(json);
+    //        score = pjData.score;
+    //        lifePoints = pjData.lifePoints;
+    //        SetBlockPanel("Load Success!", false);
+    //    }
+    //    else
+    //    {
+    //        SetBlockPanel("Sucedio un error en la carga de datos", true);
+    //    }
+    //}
+    //private void SavePJData()
+    //{
+    //    PJData pjData = new PJData()
+    //    {
+    //        score = score,
+    //        lifePoints = lifePoints,
+    //    };
+    //    string json = JsonUtility.ToJson(pjData);
+    //    SetBlockPanel("Saving, please don't close the app", true);
+    //    playFabLogIn.SaveDataInfo(json, "PJInfo", OnFinishAction);
+    //}
+    //private void LoadPJData()
+    //{
+    //    SetBlockPanel("Loading, please don't close the app", true);
+    //    playFabLogIn.LoadDataInfo("PJInfo", OnLoadData);
+    //}
 }
 
 public enum LoginPanelType
@@ -166,17 +188,11 @@ public enum LoginPanelType
     Recovery
 }
 
-[System.Serializable]
-public class PJData
-{
-    public int score;
-    public int lifePoints;
-}
+//[System.Serializable]
+//public class PJData
+//{
+//    public int score;
+//    public int lifePoints;
+//}
 
-[System.Serializable]
-public class LeaderBoardData
-{
-    public string displayName;
-    public int score;
-    public int boardPos;
-}
+

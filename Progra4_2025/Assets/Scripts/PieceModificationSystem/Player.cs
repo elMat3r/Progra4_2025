@@ -213,7 +213,7 @@ public class Player : MonoBehaviour
     public void LoadData()
     {
         LoadSaveSystem loadSave = new LoadSaveSystem();
-        PlayerDataInfo playerData = loadSave.LoadPlayerInfo(OnEndLoadData);
+        loadSave.LoadPlayerInfo(OnEndLoadData);
     }
 
     public void OnEndLoadData(PlayerDataInfo playerData)
