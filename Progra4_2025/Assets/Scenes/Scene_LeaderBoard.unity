@@ -1567,6 +1567,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1826349588}
   - component: {fileID: 1826349587}
+  - component: {fileID: 1826349589}
   m_Layer: 0
   m_Name: LeaderBoard_Manager
   m_TagString: Untagged
@@ -1613,6 +1614,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1826349589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1826349586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bf6733353ef49645a94b5712d4470ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rectTransform: {fileID: 0}
+  objectsOnPanel: []
+  textPoint: {fileID: 0}
+  tiempoTotal: 0
+  enableObjectsTime: 0.05
+  animationCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &83494342246789915
 PrefabInstance:
   m_ObjectHideFlags: 0
