@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,12 +11,6 @@ public class Shooting_System : MonoBehaviour
     public Transform spawnPoint;
     public float bulletSpd;
     public GameObject bulletPrefab;
-
-    [Header("ObjectPooling")]
-    public int maxQuantity;
-    private int index;
-    public Transform poolingParent;
-    private List<GameObject> poolingList = new List<GameObject>();
     public void OnEnable()
     {
         inputActions.FindActionMap("Player").Enable();
@@ -34,25 +27,17 @@ public class Shooting_System : MonoBehaviour
     {
         if (m_attackAction.WasPerformedThisFrame())
         {
-            Shoot();
+            GunShoot();
         }
     }
-    public void Shoot()
+    public void GunShoot()
     {
-        if (poolingList.Count >= maxQuantity)
+        GameObject bullet = Instantiate(bulletPrefab, spawnPoint.position, Quaternion.identity);
+        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+        if (rb != null)
         {
-            poolingList[index].gameObject.SetActive(true);
-            poolingList[index].transform.position = spawnPoint.position;
-            poolingList[index].GetComponent<Rigidbody2D>().linearVelocity = spawnPoint.up * bulletSpd;
-            index++;
-            if (index >= maxQuantity)
-            {
-                index = 0;
-            }
-        }
-        else
-        {
-            poolingList.Add(InstantiateBullet(spawnPoint.position, spawnPoint.up, bulletSpd));
+            rb.linearVelocity = spawnPoint.up * bulletSpd;
+            rb.transform.up = spawnPoint.up;
         }
     }
     public GameObject InstantiateBullet(Vector3 pos, Vector3 dir, float spd)

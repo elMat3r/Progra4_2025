@@ -2,85 +2,105 @@ using UnityEngine;
 
 public class Enemy_Detection : MonoBehaviour
 {
-    [Header("Movimiento")]
-    public float moveSpeed = 3f;
-    [Range(0, 15)]
-    public float stopDistance = 1.5f;
-
-    [Header("Rotación")]
-    public float rotationSpeed = 180f; // grados por segundo
-    public float rotationOffset = 0f;  // ajuste visual del sprite
-
-    [Header("Detección")]
-    [Range(0, 15)]
-    public float detectionRadius = 6f;
-    public LayerMask playerLayer;
+    [Header("Configuración de la torreta")]
+    public float radioApuntar = 10f;
+    public float radioAtaque = 9f;
+    public float tiempoEntreDisparos = 1f;
+    public float powerBullet = 7f;
 
     [Header("Referencias")]
-    public Rigidbody2D rb;
-    public Transform visual; // el sprite o hijo del enemigo
+    public Transform spawnBullet;
+    public GameObject prefabBullet;
 
-    private Transform player;
+    [Header("Detección de enemigos")]
+    public LayerMask detectionLayer;
+
+    private Transform objetivoActual;
+    private Vector2 direccion;
+    private float tiempoUltimoDisparo;
 
     void Update()
     {
-        // Buscar al jugador dentro del radio de detección
-        Collider2D target = Physics2D.OverlapCircle(transform.position, detectionRadius, playerLayer);
+        DetectarObjetivo();
+        ApuntarAlObjetivo();
 
-        if (target != null)
+        if (objetivoActual == null) return;
+
+        if (direccion.magnitude <= radioAtaque && Time.time >= tiempoUltimoDisparo + tiempoEntreDisparos)
         {
-            player = target.transform;
-            float distance = Vector2.Distance(transform.position, player.position);
+            Disparar();
+            tiempoUltimoDisparo = Time.time;
+        }
+    }
 
-            if (distance > stopDistance)
+    void DetectarObjetivo()
+    {
+        Collider2D[] objetivos = Physics2D.OverlapCircleAll(transform.position, radioApuntar, detectionLayer);
+
+        if (objetivos.Length > 0)
+        {
+            Debug.Log($"{objetivos.Length} enemigo(s) detectado(s) dentro del radio de apuntar.");
+        }
+
+        Transform objetivoMasCercano = null;
+        float distanciaMasCercana = Mathf.Infinity;
+
+        foreach (Collider2D col in objetivos)
+        {
+            float distancia = Vector2.Distance(transform.position, col.transform.position);
+            if (distancia < distanciaMasCercana)
             {
-                MoveAndRotateTowardsPlayer();
+                distanciaMasCercana = distancia;
+                objetivoMasCercano = col.transform;
             }
+        }
+
+        if (objetivoMasCercano != objetivoActual)
+        {
+            if (objetivoMasCercano != null)
+                Debug.Log($"Nuevo objetivo detectado: {objetivoMasCercano.name}");
             else
-            {
-                StopCompletely();
-            }
+                Debug.Log("Sin objetivo en el radio de apuntar.");
         }
-        else
+
+        objetivoActual = objetivoMasCercano;
+    }
+
+    void ApuntarAlObjetivo()
+    {
+        if (objetivoActual == null) return;
+
+        direccion = objetivoActual.position - transform.position;
+
+        if (direccion.magnitude <= radioApuntar)
         {
-            StopCompletely();
+            transform.up = direccion;
         }
     }
 
-    void MoveAndRotateTowardsPlayer()
+    void Disparar()
     {
-        // Dirección hacia el jugador
-        Vector2 direction = (player.position - transform.position).normalized;
+        if (prefabBullet == null || spawnBullet == null) return;
 
-        // Movimiento lineal
-        rb.linearVelocity = direction * moveSpeed;
+        Debug.Log($" Disparando hacia: {objetivoActual.name}");
 
-        // Calcular ángulo en Z con offset
-        float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + rotationOffset;
+        GameObject proyectil = Instantiate(prefabBullet, spawnBullet.position, transform.rotation);
+        Rigidbody2D rb = proyectil.GetComponent<Rigidbody2D>();
 
-        // Rotación suave
-        float newAngle = Mathf.MoveTowardsAngle(transform.eulerAngles.z, targetAngle, rotationSpeed * Time.deltaTime);
+        if (rb != null)
+        {
+            rb.AddForce(direccion.normalized * powerBullet, ForceMode2D.Impulse);
+        }
 
-        // Aplicar rotación al Rigidbody
-        rb.MoveRotation(newAngle);
-
-        // Mantener el visual alineado
-        if (visual != null)
-            visual.rotation = Quaternion.Euler(0, 0, newAngle);
+        Destroy(proyectil, 5f);
     }
 
-    void StopCompletely()
+    private void OnDrawGizmos()
     {
-        rb.linearVelocity = Vector2.zero;
-        rb.angularVelocity = 0f;
-    }
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, radioApuntar);
 
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, detectionRadius);
-
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, stopDistance);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, radioAtaque);
     }
 }

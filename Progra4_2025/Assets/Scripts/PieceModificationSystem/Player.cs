@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IHealth
 {
     [Header("Clases")]
     [SerializeField] Movement movement;
@@ -39,9 +39,13 @@ public class Player : MonoBehaviour
     public string playerName;
     public int currentDmg;
     public int points;
-    
+
+    [Header("Life")]
+    public int maxHealth;
+    int currentHealth;
     private void Start()
     {
+        currentHealth = maxHealth;
         UpdateControllersWithTankPieces();
         LoadData();
     }
@@ -215,7 +219,6 @@ public class Player : MonoBehaviour
         LoadSaveSystem loadSave = new LoadSaveSystem();
         loadSave.LoadPlayerInfo(OnEndLoadData);
     }
-
     public void OnEndLoadData(PlayerDataInfo playerData)
     {
         if (playerData == null) return;
@@ -264,5 +267,18 @@ public class Player : MonoBehaviour
 
         LoadSaveSystem loadSave = new LoadSaveSystem();
         loadSave.SavePlayerInfo(playerData);
+    }
+    public void TakeDamage(int amount)
+    {
+        currentHealth -= amount;
+        if(currentHealth <= 0)
+        {
+            Debug.Log("Dead");
+            Die();
+        }
+    }
+    public void Die()
+    {
+        Level_Manager.Instance.OnPlayerDie();
     }
 }

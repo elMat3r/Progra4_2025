@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
@@ -6,11 +7,15 @@ using UnityEngine;
 public class Leaderboard_Manager : MonoBehaviour
 {
     [SerializeField] Leaderboard_Content[] leaderBoardContent;
-    public int score;
 
     private void Start()
     {
-        SaveDataToLeaderboard();
+        StartCoroutine(LoadLeaderBoardCorrutine());
+    }
+    IEnumerator LoadLeaderBoardCorrutine()
+    {
+        yield return new WaitForSeconds(2);
+        LoadLeaderBoard();
     }
     public void LoadLeaderBoard()
     {
@@ -34,17 +39,4 @@ public class Leaderboard_Manager : MonoBehaviour
             }
         }
     }
-    void SaveDataToLeaderboard() //Funciones en el sistema de score, asi que por ahora van a estar aqui
-    {
-        PlayFabLogin playfabLogin = new PlayFabLogin();
-        playfabLogin.AddDataToMaxPoints(score, OnEndSavePoints);
-        Debug.Log("Saving Data");
-    }
-    private void OnEndSavePoints(string message, bool result)
-    {
-        Debug.Log("Pasando Algo");
-        LoadLeaderBoard();
-        //Cuando termine de guardar la escena cambia a leaderboard
-    }
-    //Funciones en el sistema de score, asi que por ahora van a estar aqui
 }
