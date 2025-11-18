@@ -7,6 +7,8 @@ using UnityEngine;
 public class Leaderboard_Manager : MonoBehaviour
 {
     [SerializeField] Leaderboard_Content[] leaderBoardContent;
+    [SerializeField] CanvasAnimation canvasAnimation;
+    public int score;
 
     private void Start()
     {
@@ -14,8 +16,10 @@ public class Leaderboard_Manager : MonoBehaviour
     }
     IEnumerator LoadLeaderBoardCorrutine()
     {
-        yield return new WaitForSeconds(2);
+        yield return canvasAnimation.AnimPanelCoroutine(true);
+        yield return canvasAnimation.ShowPointsCoroutine(score);
         LoadLeaderBoard();
+        yield return null;
     }
     public void LoadLeaderBoard()
     {
