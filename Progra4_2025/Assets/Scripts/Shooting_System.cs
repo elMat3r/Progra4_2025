@@ -11,6 +11,9 @@ public class Shooting_System : MonoBehaviour
     public Transform spawnPoint;
     public float bulletSpd;
     public GameObject bulletPrefab;
+
+    [Header("Analytic")]
+    public int bulletThrowingCount;
     public void OnEnable()
     {
         inputActions.FindActionMap("Player").Enable();
@@ -28,6 +31,7 @@ public class Shooting_System : MonoBehaviour
         if (m_attackAction.WasPerformedThisFrame())
         {
             GunShoot();
+            bulletThrowingCount++;
         }
     }
     public void GunShoot()

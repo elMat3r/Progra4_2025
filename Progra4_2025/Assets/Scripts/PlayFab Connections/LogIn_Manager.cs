@@ -65,17 +65,7 @@ public class LogIn_Manager : MonoBehaviour
         }
     }
 
-    ////LeaderBoardFunctions
-    //void LoadLeaderBoard()
-    //{
-    //    playfabLogin.GetDataFromMaxScore(OnEndLoadLeaderBoard);
-    //}
-    //void OnEndLoadLeaderBoard(List<LeaderBoardData> data)
-    //{
-    //    leaderBoardData = data;
-    //}
-
-        //ChangeFunctions
+    //ChangeFunctions
     public void OnChangePass(string val)
     {
         password = val;
@@ -147,38 +137,6 @@ public class LogIn_Manager : MonoBehaviour
     {
         SetPanel(LoginPanelType.Login);
     }
-
-    //Load&SaveFunctions
-    //private void OnLoadData(string json, bool success)
-    //{
-    //    if (success)
-    //    {
-    //        PJData pjData = JsonUtility.FromJson<PJData>(json);
-    //        score = pjData.score;
-    //        lifePoints = pjData.lifePoints;
-    //        SetBlockPanel("Load Success!", false);
-    //    }
-    //    else
-    //    {
-    //        SetBlockPanel("Sucedio un error en la carga de datos", true);
-    //    }
-    //}
-    //private void SavePJData()
-    //{
-    //    PJData pjData = new PJData()
-    //    {
-    //        score = score,
-    //        lifePoints = lifePoints,
-    //    };
-    //    string json = JsonUtility.ToJson(pjData);
-    //    SetBlockPanel("Saving, please don't close the app", true);
-    //    playFabLogIn.SaveDataInfo(json, "PJInfo", OnFinishAction);
-    //}
-    //private void LoadPJData()
-    //{
-    //    SetBlockPanel("Loading, please don't close the app", true);
-    //    playFabLogIn.LoadDataInfo("PJInfo", OnLoadData);
-    //}
 }
 
 public enum LoginPanelType

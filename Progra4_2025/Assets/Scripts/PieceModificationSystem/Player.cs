@@ -40,6 +40,9 @@ public class Player : MonoBehaviour, IHealth
     public int currentDmg;
     public int points;
 
+    [Header("Analytic")]
+    public string reason;
+
     [Header("Life")]
     public int maxHealth;
     int currentHealth;
@@ -279,6 +282,8 @@ public class Player : MonoBehaviour, IHealth
     }
     public void Die()
     {
+        Analytic_Manager.Instance.BulletThrowing(shootingSystem.bulletThrowingCount);
+        Analytic_Manager.Instance.PlayerDead(reason);
         Level_Manager.Instance.OnPlayerDie();
     }
 }
