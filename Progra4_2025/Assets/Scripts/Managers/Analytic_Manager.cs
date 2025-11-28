@@ -1,22 +1,11 @@
-using PlayFab.EventsModels;
-using PlayFab;
-using System.Collections.Generic;
-using System;
+using Unity.Services.Analytics;
+using Unity.Services.Core;
 using UnityEngine;
 
 public class Analytic_Manager : MonoBehaviour
 {
     public static Analytic_Manager Instance;
-
-    // Tamaño máximo antes de enviar telemetría
-    [SerializeField] private int maxBufferSize = 10;
-
-    // Tiempo entre autosend
-    [SerializeField] private float autoFlushInterval = 10f;
-
-    private List<EventContents> buffer = new List<EventContents>();
-    private float timer = 0f;
-    bool isFlushing = false;
+    [HideInInspector] public bool isInitialized = false;
 
     void Awake()
     {
@@ -29,121 +18,130 @@ public class Analytic_Manager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
-
-    void Update()
+    public async void Start()
     {
-        if (isFlushing) return;
-        timer += Time.deltaTime;
-        if (timer >= autoFlushInterval)
+        await UnityServices.InitializeAsync();
+        AnalyticsService.Instance.StartDataCollection();
+        isInitialized = true;
+    }
+    public void SaveMyFirstCustomEvent(float MFCELindoFloat)
+    {
+        if (isInitialized)
         {
-            Flush();
+            Debug.Log("Funcionando Correctamente");
+            MyFirstCustomEvent myFirstCustomEvent = new MyFirstCustomEvent()
+            {
+                MFCE_LindoFloat = MFCELindoFloat,
+            };
+            AnalyticsService.Instance.RecordEvent(myFirstCustomEvent);
         }
     }
-
-    // -----------------------------
-    //   API PÚBLICA PARA ENVIAR EVENTOS
-    // -----------------------------
-
-    public void LogEvent(string eventName, Dictionary<string, object> data = null, string eventNamespace = "custom")
+    public void SaveMySecondEvent(string MSE_String, int MSE_Int, bool MSE_Bool)
     {
-        if (data == null) data = new Dictionary<string, object>();
-
-        var evt = new EventContents
+        if (isInitialized)
         {
-            Name = eventName,
-            EventNamespace = "com.playfab.events.custom",
-            Payload = data,
-            OriginalTimestamp = DateTime.UtcNow
-        };
-
-        buffer.Add(evt);
-
-        if (buffer.Count >= maxBufferSize)
-            Flush();
-    }
-
-    // -----------------------------
-    //   FLUSH (ENVÍA LOS EVENTOS A PLAYFAB)
-    // -----------------------------
-    public void Flush()
-    {
-        if (buffer.Count == 0) return;
-
-        isFlushing = true;
-        var request = new WriteEventsRequest
-        {
-            Events = new List<EventContents>(buffer)
-        };
-
-        PlayFabEventsAPI.WriteEvents(request,
-            result =>
+            Debug.Log("Funcionando Correctamente2");
+            MySecondEvent mySecondEvent = new MySecondEvent()
             {
-                isFlushing = false;
-                buffer.Clear();
-                timer = 0f;
-                Debug.Log($"Telemetry enviado ({result.AssignedEventIds.Count} eventos)");
-            },
-            error =>
-            {
-                isFlushing = false;
-                Debug.LogWarning("Error enviando Telemetry, se reintentará automáticamente. " + error.ErrorMessage);
-                // No limpiamos el buffer, se reenvía en el próximo Flush
-            }
-        );
+                MSE_NewInt = MSE_Int,
+                MSE_NewString = MSE_String,
+                MSE_NewBool = MSE_Bool
+            };
+            AnalyticsService.Instance.RecordEvent(mySecondEvent);
+            //AnalyticsService.Instance.Flush(); //<--- Esto es para que la informacion se mande de manera inmediata
+        }
     }
-
     // -----------------------------
     //   ATAJOS PARA EVENTOS COMUNES
     // -----------------------------
 
-    public void LevelStart(int level)
+    //public void LevelStart(int level)
+    //{
+    //    if (isInitialized)
+    //    {
+    //        Debug.Log("Funcionando Correctamente2");
+    //        MySecondEvent mySecondEvent = new MySecondEvent()
+    //        {
+    //            MSE_NewInt = MSE_Int
+    //        };
+    //        AnalyticsService.Instance.RecordEvent(mySecondEvent);
+    //        //AnalyticsService.Instance.Flush(); //<--- Esto es para que la informacion se mande de manera inmediata
+    //    }
+    //}
+
+    //public void LevelComplete(int level, float time, int score)
+    //{
+    //    if (isInitialized)
+    //    {
+    //        Debug.Log("Funcionando Correctamente2");
+    //        MySecondEvent mySecondEvent = new MySecondEvent()
+    //        {
+    //            MSE_NewInt = MSE_Int,
+    //            MSE_NewFloat = MSE_Float,
+    //            MSE_NewInt = MSE_Int,
+    //        };
+    //        AnalyticsService.Instance.RecordEvent(mySecondEvent);
+    //        //AnalyticsService.Instance.Flush(); //<--- Esto es para que la informacion se mande de manera inmediata
+    //    }
+    //}
+
+    //public void PlayerDead(string reason/*, float time, float posX, float posY*/)
+    //{
+    //    if (isInitialized)
+    //    {
+    //        Debug.Log("Funcionando Correctamente2");
+    //        MySecondEvent mySecondEvent = new MySecondEvent()
+    //        {
+    //            MSE_NewInt = MSE_Int,
+    //            MSE_NewString = MSE_String,
+    //            MSE_NewBool = MSE_Bool
+    //        };
+    //        AnalyticsService.Instance.RecordEvent(mySecondEvent);
+    //        //AnalyticsService.Instance.Flush(); //<--- Esto es para que la informacion se mande de manera inmediata
+    //    }
+    //}
+
+    public void EnemyDefeated(string enemy)
     {
-        Dictionary<string, object> data = new Dictionary<string, object>();
-        data.Add("level", level);
-        LogEvent("level_start", data, "gameplay");
+        if (isInitialized)
+        {
+            Debug.Log("Funcionando Correctamente2");
+            EnemyDefeatedEvent enemyDefeatedEvent = new EnemyDefeatedEvent()
+            {
+                ED_StringEnemy = enemy
+            };
+            AnalyticsService.Instance.RecordEvent(enemyDefeatedEvent);
+            //AnalyticsService.Instance.Flush(); //<--- Esto es para que la informacion se mande de manera inmediata
+        }
     }
 
-    public void LevelComplete(int level, float time, int score)
-    {
-        Dictionary<string, object> data = new Dictionary<string, object>();
-        data.Add("level", level);
-        data.Add("time", time);
-        data.Add("score", score);
-        LogEvent("level_complete", data, "gameplay");
-    }
+    //public void ScorePerPlayer(int score)
+    //{
+    //    if (isInitialized)
+    //    {
+    //        Debug.Log("Funcionando Correctamente2");
+    //        MySecondEvent mySecondEvent = new MySecondEvent()
+    //        {
+    //            MSE_NewInt = MSE_Int,
+    //            MSE_NewString = MSE_String,
+    //            MSE_NewBool = MSE_Bool
+    //        };
+    //        AnalyticsService.Instance.RecordEvent(mySecondEvent);
+    //        //AnalyticsService.Instance.Flush(); //<--- Esto es para que la informacion se mande de manera inmediata
+    //    }
+    //}
 
-    public void PlayerDead(string reason/*, float time, float posX, float posY*/)
-    {
-        Dictionary<string, object> data = new Dictionary<string, object>();
-        data.Add("reason", reason);
-        //data.Add("timeAlive", time);
-        //data.Add("deadPos", posX);
-        //data.Add("deadPos", posY);
-        LogEvent("player_dead", data, "gameplay");
-
-        //que es lo mismo que esto
-        //LogEvent("player_died", new Dictionary<string, object> {{ "reason", reason }}, "gameplay");
-    }
-
-    public void EnemyDefeated(int enemies)
-    {
-        Dictionary<string, object> data = new Dictionary<string, object>();
-        data.Add("enemy", enemies);
-        LogEvent("enemy_deafeated", data, "gameplay");
-    }
-
-    public void ScorePerPlayer(int score)
-    {
-        Dictionary<string, object> data = new Dictionary<string, object>();
-        data.Add("scorePlayer", score);
-        LogEvent("score_player", data, "leaderBoard");
-    }
-
-    public void BulletThrowing(int bullet)
-    {
-        Dictionary<string, object> data = new Dictionary<string, object>();
-        data.Add("playerBullet", bullet);
-        LogEvent("bullet_throwing", data, "player");
-        Flush();
-    }
+    //public void BulletThrowing(int bullet)
+    //{
+    //    if (isInitialized)
+    //    {
+    //        Debug.Log("Funcionando Correctamente2");
+    //        MySecondEvent mySecondEvent = new MySecondEvent()
+    //        {
+    //            MSE_NewInt = MSE_Int
+    //        };
+    //        AnalyticsService.Instance.RecordEvent(mySecondEvent);
+    //        //AnalyticsService.Instance.Flush(); //<--- Esto es para que la informacion se mande de manera inmediata
+    //    }
+    //}
 }

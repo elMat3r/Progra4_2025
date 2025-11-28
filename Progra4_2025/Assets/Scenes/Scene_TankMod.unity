@@ -3551,6 +3551,7 @@ MonoBehaviour:
   playerName: 
   currentDmg: 0
   points: 0
+  reason: 
   maxHealth: 30
 --- !u!4 &870551299
 Transform:
@@ -3645,7 +3646,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.020504475, y: 0.252887}
+  m_Offset: {x: -0.020504475, y: -0.055125475}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -3655,7 +3656,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 2.161912, y: 2.708694}
+  m_Size: {x: 2.161912, y: 2.092669}
   m_EdgeRadius: 0
 --- !u!1 &902441744
 GameObject:
@@ -4407,6 +4408,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea1435512c2a7454e9b5df47fa15b932, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1090247619
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1090247621}
+  - component: {fileID: 1090247620}
+  m_Layer: 0
+  m_Name: AnalyticManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1090247620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1090247619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7e0122d47aed63469da671ce274865b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isInitialized: 0
+--- !u!4 &1090247621
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1090247619}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.1223392, y: -0.08314787, z: 0.0031914506}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &1134649551 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6514945064553166384, guid: 0574ad85a30e80b4d91e5d79a1dd69d0, type: 3}
@@ -7932,6 +7978,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 1461802955}
   bulletSpd: 5
   bulletPrefab: {fileID: 1890163069791570306, guid: a48e2d98841a47841a807c54adaca273, type: 3}
+  bulletThrowingCount: 0
 --- !u!212 &7884391891963567770
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8104,3 +8151,4 @@ SceneRoots:
   - {fileID: 138118822}
   - {fileID: 902441746}
   - {fileID: 245481935}
+  - {fileID: 1090247621}

@@ -282,8 +282,8 @@ public class Player : MonoBehaviour, IHealth
     }
     public void Die()
     {
-        Analytic_Manager.Instance.BulletThrowing(shootingSystem.bulletThrowingCount);
-        Analytic_Manager.Instance.PlayerDead(reason);
+        //Analytic_Manager.Instance.BulletThrowing(shootingSystem.bulletThrowingCount);
+        //Analytic_Manager.Instance.PlayerDead(reason);
         Level_Manager.Instance.OnPlayerDie();
     }
 }

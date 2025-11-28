@@ -18,6 +18,8 @@ public class Enemy_System : MonoBehaviour, IHealth
             Level_Manager.Instance.AddPoints(points);
         }
         Destroy(gameObject);
+        Analytic_Manager.Instance.EnemyDefeated("Enemy");
+        
     }
     public void TakeDamage(int amount)
     {
