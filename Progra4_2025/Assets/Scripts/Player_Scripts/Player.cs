@@ -278,12 +278,12 @@ public class Player : MonoBehaviour, IHealth
         {
             Debug.Log("Dead");
             Die();
+            Analytic_Manager.Instance.PlayerDead("Mori", transform.position.x, transform.position.y);
         }
     }
     public void Die()
     {
-        //Analytic_Manager.Instance.BulletThrowing(shootingSystem.bulletThrowingCount);
-        //Analytic_Manager.Instance.PlayerDead(reason);
+
         Level_Manager.Instance.OnPlayerDie();
     }
 }

@@ -85,21 +85,21 @@ public class Analytic_Manager : MonoBehaviour
     //    }
     //}
 
-    //public void PlayerDead(string reason/*, float time, float posX, float posY*/)
-    //{
-    //    if (isInitialized)
-    //    {
-    //        Debug.Log("Funcionando Correctamente2");
-    //        MySecondEvent mySecondEvent = new MySecondEvent()
-    //        {
-    //            MSE_NewInt = MSE_Int,
-    //            MSE_NewString = MSE_String,
-    //            MSE_NewBool = MSE_Bool
-    //        };
-    //        AnalyticsService.Instance.RecordEvent(mySecondEvent);
-    //        //AnalyticsService.Instance.Flush(); //<--- Esto es para que la informacion se mande de manera inmediata
-    //    }
-    //}
+    public void PlayerDead(string died, float posX, float posY)
+    {
+        if (isInitialized)
+        {
+            Debug.Log("Analisis de muerte comprobado");
+            PlayerDeadEvent mySecondEvent = new PlayerDeadEvent()
+            {
+                PD_StringDied = died,
+                PD_FloatX = posX,
+                PD_FloatY = posY
+            };
+            AnalyticsService.Instance.RecordEvent(mySecondEvent);
+            //AnalyticsService.Instance.Flush(); //<--- Esto es para que la informacion se mande de manera inmediata
+        }
+    }
 
     public void EnemyDefeated(string enemy)
     {

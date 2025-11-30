@@ -29,3 +29,14 @@ public class EnemyDefeatedEvent : Event
 
     public string ED_StringEnemy { set { SetParameter("ED_StringEnemy", value); } }
 }
+
+public class PlayerDeadEvent : Event
+{
+    public PlayerDeadEvent() : base("playerDead")
+    {
+    }
+
+    public string PD_StringDied { set { SetParameter("PD_StringDied", value); } }
+    public float PD_FloatX { set { SetParameter("PD_FloatX", value); } }
+    public float PD_FloatY { set { SetParameter("PD_FloatY", value); } }
+}
