@@ -32,6 +32,7 @@ public class Shooting_System : MonoBehaviour
         {
             GunShoot();
             bulletThrowingCount++;
+            Analytic_Manager.Instance.BulletThrowing(bulletThrowingCount);
         }
     }
     public void GunShoot()

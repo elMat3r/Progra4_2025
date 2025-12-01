@@ -40,3 +40,11 @@ public class PlayerDeadEvent : Event
     public float PD_FloatX { set { SetParameter("PD_FloatX", value); } }
     public float PD_FloatY { set { SetParameter("PD_FloatY", value); } }
 }
+
+public class BulletThrowingEvent : Event
+{
+    public BulletThrowingEvent() : base("bulletThrowing")
+    {
+    }
+    public int BT_IntBulletCount { set { SetParameter("BT_IntBulletCount", value); } }
+}

@@ -131,17 +131,17 @@ public class Analytic_Manager : MonoBehaviour
     //    }
     //}
 
-    //public void BulletThrowing(int bullet)
-    //{
-    //    if (isInitialized)
-    //    {
-    //        Debug.Log("Funcionando Correctamente2");
-    //        MySecondEvent mySecondEvent = new MySecondEvent()
-    //        {
-    //            MSE_NewInt = MSE_Int
-    //        };
-    //        AnalyticsService.Instance.RecordEvent(mySecondEvent);
-    //        //AnalyticsService.Instance.Flush(); //<--- Esto es para que la informacion se mande de manera inmediata
-    //    }
-    //}
+    public void BulletThrowing(int bullet)
+    {
+        if (isInitialized)
+        {
+            Debug.Log("Funcionando Correctamente2");
+            BulletThrowingEvent mySecondEvent = new BulletThrowingEvent()
+            {
+                BT_IntBulletCount = bullet
+            };
+            AnalyticsService.Instance.RecordEvent(mySecondEvent);
+            //AnalyticsService.Instance.Flush(); //<--- Esto es para que la informacion se mande de manera inmediata
+        }
+    }
 }
