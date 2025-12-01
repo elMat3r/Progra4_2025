@@ -1,5 +1,4 @@
 using UnityEngine;
-
 public class PauseGame : MonoBehaviour
 {
     public GameObject canvasPanelStore;

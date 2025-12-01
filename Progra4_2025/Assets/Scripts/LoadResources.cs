@@ -1,5 +1,4 @@
 using UnityEngine;
-
 public class LoadResources
 {
     public TankPieceScriptable GetTankPieceScriptable(TankPieceType type, string id)

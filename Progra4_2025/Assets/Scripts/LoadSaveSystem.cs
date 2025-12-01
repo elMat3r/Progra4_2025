@@ -18,7 +18,7 @@ public class LoadSaveSystem
                 json = data;
                 PlayerDataInfo loadData = JsonUtility.FromJson<PlayerDataInfo>(json);
                 onEndLoadData(loadData);
-                Debug.Log("Load Success");
+                //Debug.Log("Load Success");
             }
         });
     }
@@ -28,9 +28,8 @@ public class LoadSaveSystem
         PlayerPrefs.SetString(playerInfoDataKey, json);
         PlayFabLogin playFabManager = new PlayFabLogin();
         playFabManager.SaveDataInfo(json, playerInfoDataKey, OnFinishSave);
-        Debug.Log("Save Success");
+        //Debug.Log("Save Success");
     }
-
     private void OnFinishSave(string arg1, bool arg2)
     {
         

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-
 public class Player : MonoBehaviour, IHealth
 {
     [Header("Clases")]
@@ -15,7 +14,6 @@ public class Player : MonoBehaviour, IHealth
     [Header("PlayerText")]
     public TextMeshProUGUI tankTextName;
     public TextMeshProUGUI tankTextNameWorld;
-
 
     [Header("TankPieces")]
     public Color piece_Light;
@@ -205,12 +203,6 @@ public class Player : MonoBehaviour, IHealth
                 case StatType.Attack:
                     bulletDmg.bulletDmg = item.value;
                     break;
-                //case StatType.Defense:
-                //    stat_Defense = newStat;
-                //    break;
-                //case StatType.Life:
-                //    stat_Life = newStat;
-                //    break;
                 case StatType.BulletSpd:
                     shootingSystem.bulletSpd = item.value;
                     break;
@@ -276,14 +268,13 @@ public class Player : MonoBehaviour, IHealth
         currentHealth -= amount;
         if(currentHealth <= 0)
         {
-            Debug.Log("Dead");
+            //Debug.Log("Dead");
             Die();
             Analytic_Manager.Instance.PlayerDead("Mori", transform.position.x, transform.position.y);
         }
     }
     public void Die()
     {
-
         Level_Manager.Instance.OnPlayerDie();
     }
 }

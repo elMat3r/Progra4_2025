@@ -1,11 +1,9 @@
 using UnityEngine;
-
 public class Enemy_System : MonoBehaviour, IHealth
 {
     [Header("Life")]
     public int maxHealth = 50;
     int currentHealth;
-
     [Header("Death Points")]
     public int minPoints;
     public int maxPoints;
@@ -13,13 +11,12 @@ public class Enemy_System : MonoBehaviour, IHealth
     {
         if (CompareTag("Enemy"))
         {
-            Debug.Log("Hit");
+            //Debug.Log("Hit");
             int points = Random.Range(minPoints, maxPoints + 1);
             Level_Manager.Instance.AddPoints(points);
         }
         Destroy(gameObject);
         Analytic_Manager.Instance.EnemyDefeated("Enemy");
-        
     }
     public void TakeDamage(int amount)
     {

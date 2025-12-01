@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-
 public class Shooting_System : MonoBehaviour
 {
     [Header("InputSystem")]

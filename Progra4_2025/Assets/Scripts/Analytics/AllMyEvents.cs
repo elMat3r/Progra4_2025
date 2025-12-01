@@ -1,6 +1,5 @@
 using Unity.Services.Analytics;
-//Cambiar el nombre de la clase al mismo que el del evento
-public class MyFirstCustomEvent : Event
+public class MyFirstCustomEvent : Event //Cambiar el nombre de la clase al mismo que el del evento
 {
     //Al constructor le ponemos el mismo nombre que la clase
     public MyFirstCustomEvent() : base("myFirstCustomEvent") //en "base" se usa el mismo nombre del evento creado en el dashboard
@@ -20,7 +19,6 @@ public class MySecondEvent : Event
     public string MSE_NewString { set { SetParameter("MSE_NewString", value); } }
     public bool MSE_NewBool { set { SetParameter("MSE_NewBool", value); } }
 }
-
 public class EnemyDefeatedEvent : Event
 {
     public EnemyDefeatedEvent() : base("enemyDefeated")
@@ -29,7 +27,6 @@ public class EnemyDefeatedEvent : Event
 
     public string ED_StringEnemy { set { SetParameter("ED_StringEnemy", value); } }
 }
-
 public class PlayerDeadEvent : Event
 {
     public PlayerDeadEvent() : base("playerDead")
@@ -40,11 +37,17 @@ public class PlayerDeadEvent : Event
     public float PD_FloatX { set { SetParameter("PD_FloatX", value); } }
     public float PD_FloatY { set { SetParameter("PD_FloatY", value); } }
 }
-
 public class BulletThrowingEvent : Event
 {
     public BulletThrowingEvent() : base("bulletThrowing")
     {
     }
     public int BT_IntBulletCount { set { SetParameter("BT_IntBulletCount", value); } }
+}
+public class ScorePerPlayerEvent : Event
+{
+    public ScorePerPlayerEvent() : base("scorePerPlayer")
+    {
+    }
+    public int SPP_IntScore { set { SetParameter("SPP_IntScore", value); } }
 }

@@ -4,7 +4,6 @@ using PlayFab;
 using PlayFab.ClientModels;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
 public class PlayFabLogin
 {
     LoadSaveSystem loadSaveSystem;
@@ -23,7 +22,7 @@ public class PlayFabLogin
         OnFinishActionEvent?.Invoke("Success", true);
         //Debug.LogError(error.ErrorMessage.ToString()); //Manda un mensaje de error
     }
-    //Funciones de registro
+    //------------------------Funciones de registro--------------------------
     public void RegisterUser(string userName, string mail, string pass, Action<string, bool> onFinishAction)
     {
         OnFinishActionEvent = onFinishAction;
@@ -84,7 +83,7 @@ public class PlayFabLogin
         PlayFabClientAPI.LoginWithCustomID(request, OnLoginSuccess /*action event*/, OnLoginFailure /*funcion si es que no funciona*/);
     }
 
-    //Recovery Account
+    //-----------------------Recovery Account----------------------
     private void OnRequestSuccess(SendAccountRecoveryEmailResult result)
     {
         OnFinishActionEvent?.Invoke("Recovery email sended", true);
@@ -101,12 +100,12 @@ public class PlayFabLogin
         PlayFabClientAPI.SendAccountRecoveryEmail(request, OnRequestSuccess, OnError);
     }
 
-    //Load&Save
+    //----------------------Load&Save------------------------
     public void OnDataSave(UpdateUserDataResult result)
     {
         OnFinishActionEvent = null;
         OnFinishActionEvent?.Invoke("Success", true);
-        Debug.Log("Success");
+        //Debug.Log("Success");
     }
     public void LoadDataInfo(string dataKey, Action<string, bool> onFinishLoad)
     {
@@ -136,7 +135,6 @@ public class PlayFabLogin
         };
         PlayFabClientAPI.UpdateUserData(request, OnDataSave, OnError);
     }
-
     public void GetDataFromMaxPoints(Action<List<LeaderBoardData>> leaderBoard)
     {
         OnFinishLeaderBoardEvent = leaderBoard;
@@ -190,13 +188,13 @@ public class PlayFabLogin
     }
     private void OnEndRequestDisplayName(UpdateUserTitleDisplayNameResult result)
     {
-        Debug.Log("Success");
+        //Debug.Log("Success");
         OnFinishActionEvent?.Invoke("Success", true);
         OnFinishActionEvent = null;
     }
     private void OnStatisticsResult(UpdatePlayerStatisticsResult result)
     {
-        Debug.Log("Success");
+        //Debug.Log("Success");
         OnFinishActionEvent?.Invoke("Success", true);
         OnFinishActionEvent = null;
     }

@@ -1,12 +1,7 @@
 using UnityEngine;
 using TMPro;
-using System;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using NUnit.Framework;
 using System.Collections.Generic;
-using UnityEngine.SocialPlatforms.Impl;
-
 public class LogIn_Manager : MonoBehaviour
 {
     [Header("Clases")]
@@ -65,7 +60,7 @@ public class LogIn_Manager : MonoBehaviour
         }
     }
 
-    //ChangeFunctions
+    //---------------ChangeFunctions-------------------
     public void OnChangePass(string val)
     {
         password = val;
@@ -83,7 +78,7 @@ public class LogIn_Manager : MonoBehaviour
         mail = val;
     }
 
-    //RecoveryFunctions
+    //-------------------RecoveryFunctions--------------------
     public void RecoveryButton()
     {
         SetBlockPanel("Sending recovery email...", true);
@@ -94,14 +89,14 @@ public class LogIn_Manager : MonoBehaviour
         SetPanel(LoginPanelType.Recovery);
     }
 
-    //LoginFunctions
+    //---------------------LoginFunctions-------------------
     public void OnLoginButton()
     {
         SetBlockPanel("Loading...", true);
         playFabLogIn.LogInUser(mail, password, OnFinishAction);
     }
 
-    //CreateAccountFunctions
+    //------------------------CreateAccountFunctions-----------------------
     public void CreateAccountButton()
     {
         SetPanel(LoginPanelType.Register);
@@ -116,8 +111,7 @@ public class LogIn_Manager : MonoBehaviour
         }
     }
 
-
-    //OtherFunctions
+    //--------------------OtherFunctions-----------------------
     private void SetPanel(LoginPanelType panelType)
     {
         for (int i = 0; i < panels.Length; i++)
@@ -138,19 +132,9 @@ public class LogIn_Manager : MonoBehaviour
         SetPanel(LoginPanelType.Login);
     }
 }
-
 public enum LoginPanelType
 {
     Login,
     Register,
     Recovery
 }
-
-//[System.Serializable]
-//public class PJData
-//{
-//    public int score;
-//    public int lifePoints;
-//}
-
-

@@ -1,12 +1,10 @@
 using Unity.Services.Analytics;
 using Unity.Services.Core;
 using UnityEngine;
-
 public class Analytic_Manager : MonoBehaviour
 {
     public static Analytic_Manager Instance;
     [HideInInspector] public bool isInitialized = false;
-
     void Awake()
     {
         if (Instance != null)
@@ -54,58 +52,26 @@ public class Analytic_Manager : MonoBehaviour
     // -----------------------------
     //   ATAJOS PARA EVENTOS COMUNES
     // -----------------------------
-
-    //public void LevelStart(int level)
-    //{
-    //    if (isInitialized)
-    //    {
-    //        Debug.Log("Funcionando Correctamente2");
-    //        MySecondEvent mySecondEvent = new MySecondEvent()
-    //        {
-    //            MSE_NewInt = MSE_Int
-    //        };
-    //        AnalyticsService.Instance.RecordEvent(mySecondEvent);
-    //        //AnalyticsService.Instance.Flush(); //<--- Esto es para que la informacion se mande de manera inmediata
-    //    }
-    //}
-
-    //public void LevelComplete(int level, float time, int score)
-    //{
-    //    if (isInitialized)
-    //    {
-    //        Debug.Log("Funcionando Correctamente2");
-    //        MySecondEvent mySecondEvent = new MySecondEvent()
-    //        {
-    //            MSE_NewInt = MSE_Int,
-    //            MSE_NewFloat = MSE_Float,
-    //            MSE_NewInt = MSE_Int,
-    //        };
-    //        AnalyticsService.Instance.RecordEvent(mySecondEvent);
-    //        //AnalyticsService.Instance.Flush(); //<--- Esto es para que la informacion se mande de manera inmediata
-    //    }
-    //}
-
     public void PlayerDead(string died, float posX, float posY)
     {
         if (isInitialized)
         {
             Debug.Log("Analisis de muerte comprobado");
-            PlayerDeadEvent mySecondEvent = new PlayerDeadEvent()
+            PlayerDeadEvent playerDeadEvent = new PlayerDeadEvent()
             {
                 PD_StringDied = died,
                 PD_FloatX = posX,
                 PD_FloatY = posY
             };
-            AnalyticsService.Instance.RecordEvent(mySecondEvent);
+            AnalyticsService.Instance.RecordEvent(playerDeadEvent);
             //AnalyticsService.Instance.Flush(); //<--- Esto es para que la informacion se mande de manera inmediata
         }
     }
-
     public void EnemyDefeated(string enemy)
     {
         if (isInitialized)
         {
-            Debug.Log("Funcionando Correctamente2");
+            Debug.Log("Registro de enemigo eliminado");
             EnemyDefeatedEvent enemyDefeatedEvent = new EnemyDefeatedEvent()
             {
                 ED_StringEnemy = enemy
@@ -114,33 +80,29 @@ public class Analytic_Manager : MonoBehaviour
             //AnalyticsService.Instance.Flush(); //<--- Esto es para que la informacion se mande de manera inmediata
         }
     }
-
-    //public void ScorePerPlayer(int score)
-    //{
-    //    if (isInitialized)
-    //    {
-    //        Debug.Log("Funcionando Correctamente2");
-    //        MySecondEvent mySecondEvent = new MySecondEvent()
-    //        {
-    //            MSE_NewInt = MSE_Int,
-    //            MSE_NewString = MSE_String,
-    //            MSE_NewBool = MSE_Bool
-    //        };
-    //        AnalyticsService.Instance.RecordEvent(mySecondEvent);
-    //        //AnalyticsService.Instance.Flush(); //<--- Esto es para que la informacion se mande de manera inmediata
-    //    }
-    //}
-
+    public void ScorePerPlayer(int score)
+    {
+        if (isInitialized)
+        {
+            Debug.Log("Evento de Score funcionando");
+            ScorePerPlayerEvent scorePerPlayerEvent = new ScorePerPlayerEvent()
+            {
+                SPP_IntScore = score
+            };
+            AnalyticsService.Instance.RecordEvent(scorePerPlayerEvent);
+            //AnalyticsService.Instance.Flush(); //<--- Esto es para que la informacion se mande de manera inmediata
+        }
+    }
     public void BulletThrowing(int bullet)
     {
         if (isInitialized)
         {
-            Debug.Log("Funcionando Correctamente2");
-            BulletThrowingEvent mySecondEvent = new BulletThrowingEvent()
+            Debug.Log("Conteo de balas funcionando");
+            BulletThrowingEvent bulletThrowingEvent = new BulletThrowingEvent()
             {
                 BT_IntBulletCount = bullet
             };
-            AnalyticsService.Instance.RecordEvent(mySecondEvent);
+            AnalyticsService.Instance.RecordEvent(bulletThrowingEvent);
             //AnalyticsService.Instance.Flush(); //<--- Esto es para que la informacion se mande de manera inmediata
         }
     }
