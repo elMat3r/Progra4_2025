@@ -1,5 +1,4 @@
 using UnityEngine;
-
 public class Enemy_Detection : MonoBehaviour
 {
     [Header("Configuración de la torreta")]
@@ -32,7 +31,6 @@ public class Enemy_Detection : MonoBehaviour
             tiempoUltimoDisparo = Time.time;
         }
     }
-
     void DetectarObjetivo()
     {
         Collider2D[] objetivos = Physics2D.OverlapCircleAll(transform.position, radioApuntar, detectionLayer);
@@ -54,7 +52,6 @@ public class Enemy_Detection : MonoBehaviour
                 objetivoMasCercano = col.transform;
             }
         }
-
         if (objetivoMasCercano != objetivoActual)
         {
             if (objetivoMasCercano != null)
@@ -62,10 +59,8 @@ public class Enemy_Detection : MonoBehaviour
             else
                 Debug.Log("Sin objetivo en el radio de apuntar.");
         }
-
         objetivoActual = objetivoMasCercano;
     }
-
     void ApuntarAlObjetivo()
     {
         if (objetivoActual == null) return;

@@ -14,7 +14,7 @@ public class Score_Manager : MonoBehaviour
     {
         if (scoreText != null)
         {
-            scoreText.text = "Puntos:" + score;
+            scoreText.text = "Score:" + score;
         }
     }
     public void SaveDataToLeaderBoard(Action<string, bool> onEndSave)//esto va en mi sistema de score
