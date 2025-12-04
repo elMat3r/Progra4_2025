@@ -19,13 +19,11 @@ public class Leaderboard_Manager : MonoBehaviour
     }
     public void LoadLeaderBoard()
     {
-        //Debug.Log("Loading Data");
         PlayFabLogin playfabLogin = new PlayFabLogin();
         playfabLogin.GetDataFromMaxPoints(SetContent);
     }
     void SetContent(List<LeaderBoardData> leaderBoardData)
     {
-        //Debug.Log("Setting Content");
         for(int i = 0;  i < leaderBoardContent.Length; i++)
         {
             if(i < leaderBoardData.Count)

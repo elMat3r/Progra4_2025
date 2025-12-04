@@ -1,11 +1,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-
 public class TurretRotation : MonoBehaviour
 {
     public InputActionAsset action;
     private InputAction rotateAction;
-
     public float rotateSpd;
     private Vector2 rotatePos;
     private Rigidbody2D rb;
@@ -20,7 +18,6 @@ public class TurretRotation : MonoBehaviour
     private void Awake()
     {
         rotateAction = InputSystem.actions.FindAction("RotateTurret"); //Mantener el nombre de la accion del InputSystem
-
         rb = GetComponent<Rigidbody2D>();
     }
     private void Update()

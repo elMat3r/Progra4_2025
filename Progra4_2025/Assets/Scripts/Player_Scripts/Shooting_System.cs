@@ -5,12 +5,10 @@ public class Shooting_System : MonoBehaviour
     [Header("InputSystem")]
     public InputActionAsset inputActions;
     private InputAction m_attackAction;
-
     [Header("Bullet")]
     public Transform spawnPoint;
     public float bulletSpd;
     public GameObject bulletPrefab;
-
     [Header("Analytic")]
     public int bulletThrowingCount;
     public void OnEnable()

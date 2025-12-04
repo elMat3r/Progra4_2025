@@ -12,7 +12,6 @@ public class Analytic_Manager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
@@ -26,7 +25,7 @@ public class Analytic_Manager : MonoBehaviour
     {
         if (isInitialized)
         {
-            Debug.Log("Funcionando Correctamente");
+            //Debug.Log("Funcionando Correctamente");
             MyFirstCustomEvent myFirstCustomEvent = new MyFirstCustomEvent()
             {
                 MFCE_LindoFloat = MFCELindoFloat,
@@ -38,7 +37,7 @@ public class Analytic_Manager : MonoBehaviour
     {
         if (isInitialized)
         {
-            Debug.Log("Funcionando Correctamente2");
+            //Debug.Log("Funcionando Correctamente2");
             MySecondEvent mySecondEvent = new MySecondEvent()
             {
                 MSE_NewInt = MSE_Int,
@@ -56,7 +55,7 @@ public class Analytic_Manager : MonoBehaviour
     {
         if (isInitialized)
         {
-            Debug.Log("Analisis de muerte comprobado");
+            //Debug.Log("Analisis de muerte comprobado");
             PlayerDeadEvent playerDeadEvent = new PlayerDeadEvent()
             {
                 PD_StringDied = died,
@@ -71,7 +70,7 @@ public class Analytic_Manager : MonoBehaviour
     {
         if (isInitialized)
         {
-            Debug.Log("Registro de enemigo eliminado");
+            //Debug.Log("Registro de enemigo eliminado");
             EnemyDefeatedEvent enemyDefeatedEvent = new EnemyDefeatedEvent()
             {
                 ED_StringEnemy = enemy
@@ -84,7 +83,7 @@ public class Analytic_Manager : MonoBehaviour
     {
         if (isInitialized)
         {
-            Debug.Log("Evento de Score funcionando");
+            //Debug.Log("Evento de Score funcionando");
             ScorePerPlayerEvent scorePerPlayerEvent = new ScorePerPlayerEvent()
             {
                 SPP_IntScore = score
@@ -97,7 +96,7 @@ public class Analytic_Manager : MonoBehaviour
     {
         if (isInitialized)
         {
-            Debug.Log("Conteo de balas funcionando");
+            //Debug.Log("Conteo de balas funcionando");
             BulletThrowingEvent bulletThrowingEvent = new BulletThrowingEvent()
             {
                 BT_IntBulletCount = bullet

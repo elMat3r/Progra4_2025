@@ -1,13 +1,11 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
-
 public class Timer_Manager : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI timerText;
     [SerializeField] float currentTimer;
     int minutes, seconds;
-
     private void Start()
     {
         StartCoroutine(StartTimer());

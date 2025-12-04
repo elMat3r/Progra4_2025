@@ -10,11 +10,9 @@ public class Player : MonoBehaviour, IHealth
     [SerializeField] TurretRotation turretRotation;
     public TankSpriteModifier spriteModifier;
     public List<StatInfo> currentStats = new List<StatInfo>();
-
     [Header("PlayerText")]
     public TextMeshProUGUI tankTextName;
     public TextMeshProUGUI tankTextNameWorld;
-
     [Header("TankPieces")]
     public Color piece_Light;
     public TankPieceScriptable piece_Track;
@@ -24,7 +22,6 @@ public class Player : MonoBehaviour, IHealth
     public TankPieceScriptable piece_GunConnector;
     public TankPieceScriptable piece_Projectile;
     public ColorPicker colorPicker;
-
     [Header("TankStats")]
     public StatInfo stat_Spd;
     public StatInfo stat_RootSpd;
@@ -32,15 +29,12 @@ public class Player : MonoBehaviour, IHealth
     public StatInfo stat_Defense;
     public StatInfo stat_Life;
     public StatInfo stat_BulletSpd;
-
     [Header("PlayerSave&Load")]
     public string playerName;
     public int currentDmg;
     public int points;
-
     [Header("Analytic")]
     public string reason;
-
     [Header("Life")]
     public int maxHealth;
     int currentHealth;
@@ -61,7 +55,6 @@ public class Player : MonoBehaviour, IHealth
         switch (newPiece.pieceType)
         {
             case TankPieceType.Light:
-                Debug.Log("Aura Farming");
                 break;
             case TankPieceType.Track:
                 piece_Track = newPiece;
@@ -93,7 +86,6 @@ public class Player : MonoBehaviour, IHealth
     public void UpdateControllersWithTankPieces()
     {
         List<StatInfo> statsInfo = new List<StatInfo>();
-
         foreach (var item in piece_Track.statInfo)
         {
             StatInfo currentStat = statsInfo.Find(x => x.type == item.type);
@@ -220,18 +212,14 @@ public class Player : MonoBehaviour, IHealth
         ChangeName(playerData.playerName);
         currentDmg = playerData.currentDmg;
         points = playerData.score;
-
         LoadResources loadResources = new LoadResources();
-
         piece_Track = loadResources.GetTankPieceScriptable(TankPieceType.Track, playerData.piecesName[0]);
         piece_Hull = loadResources.GetTankPieceScriptable(TankPieceType.Hull, playerData.piecesName[1]);
         piece_Tower = loadResources.GetTankPieceScriptable(TankPieceType.Tower, playerData.piecesName[2]);
         piece_Gun = loadResources.GetTankPieceScriptable(TankPieceType.Gun, playerData.piecesName[3]);
         piece_GunConnector = loadResources.GetTankPieceScriptable(TankPieceType.GunConnector, playerData.piecesName[4]);
         piece_Projectile = loadResources.GetTankPieceScriptable(TankPieceType.Projectile, playerData.piecesName[5]);
-
         piece_Light = playerData.colorTank;
-
         spriteModifier.ChangeSprite(piece_Track.pieceType, piece_Track.pieceSprite);
         spriteModifier.ChangeSprite(piece_Hull.pieceType, piece_Hull.pieceSprite);
         spriteModifier.ChangeSprite(piece_Tower.pieceType, piece_Tower.pieceSprite);
@@ -239,17 +227,14 @@ public class Player : MonoBehaviour, IHealth
         spriteModifier.ChangeSprite(piece_GunConnector.pieceType, piece_GunConnector.pieceSprite);
         spriteModifier.ChangeSprite(piece_Projectile.pieceType, piece_Projectile.pieceSprite);
         spriteModifier.ChangeLightColor(piece_Light);
-
         UpdateControllersWithTankPieces();
     }
     public void SaveData()
     {
         PlayerDataInfo playerData = new PlayerDataInfo();
-
         playerData.playerName = playerName;
         playerData.currentDmg = currentDmg;
         playerData.score = points;
-
         playerData.piecesName = new List<string>();
         playerData.piecesName.Add(piece_Track.id);
         playerData.piecesName.Add(piece_Hull.id);
@@ -257,9 +242,7 @@ public class Player : MonoBehaviour, IHealth
         playerData.piecesName.Add(piece_Gun.id);
         playerData.piecesName.Add(piece_GunConnector.id);
         playerData.piecesName.Add(piece_Projectile.id);
-
         playerData.colorTank = piece_Light;
-
         LoadSaveSystem loadSave = new LoadSaveSystem();
         loadSave.SavePlayerInfo(playerData);
     }
@@ -268,7 +251,6 @@ public class Player : MonoBehaviour, IHealth
         currentHealth -= amount;
         if(currentHealth <= 0)
         {
-            //Debug.Log("Dead");
             Die();
             Analytic_Manager.Instance.PlayerDead("Mori", transform.position.x, transform.position.y);
         }

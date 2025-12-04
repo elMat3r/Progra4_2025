@@ -6,7 +6,6 @@ public class LogIn_Manager : MonoBehaviour
 {
     [Header("Clases")]
     [SerializeField] PlayFabLogin playFabLogIn;
-
     [Header("Variables")]
     public string user;
     public string mail;
@@ -14,12 +13,10 @@ public class LogIn_Manager : MonoBehaviour
     public string repeatPassword;
     public int score;
     public int lifePoints;
-
     [Header("Objetos")]
     [SerializeField] GameObject blockPanel;
     [SerializeField] GameObject[] panels;
     [SerializeField] TextMeshProUGUI textFeedback;
-
     [Header("Listas")]
     public List<LeaderBoardData> leaderBoardData;
     LoginPanelType currentPanel;
@@ -59,7 +56,6 @@ public class LogIn_Manager : MonoBehaviour
             SetBlockPanel(message, true);
         }
     }
-
     //---------------ChangeFunctions-------------------
     public void OnChangePass(string val)
     {
@@ -77,7 +73,6 @@ public class LogIn_Manager : MonoBehaviour
     {
         mail = val;
     }
-
     //-------------------RecoveryFunctions--------------------
     public void RecoveryButton()
     {
@@ -88,14 +83,12 @@ public class LogIn_Manager : MonoBehaviour
     {
         SetPanel(LoginPanelType.Recovery);
     }
-
     //---------------------LoginFunctions-------------------
     public void OnLoginButton()
     {
         SetBlockPanel("Loading...", true);
         playFabLogIn.LogInUser(mail, password, OnFinishAction);
     }
-
     //------------------------CreateAccountFunctions-----------------------
     public void CreateAccountButton()
     {
@@ -110,7 +103,6 @@ public class LogIn_Manager : MonoBehaviour
             playFabLogIn.RegisterUser(user, mail, password, OnFinishAction);
         }
     }
-
     //--------------------OtherFunctions-----------------------
     private void SetPanel(LoginPanelType panelType)
     {

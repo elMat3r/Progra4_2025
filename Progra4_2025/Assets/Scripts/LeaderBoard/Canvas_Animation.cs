@@ -26,7 +26,6 @@ public class CanvasAnimation : MonoBehaviour
             //Agregar sonido
             yield return new WaitForSeconds(enableObjectsTime);
         }
-
         textPoint.text = points.ToString();
     }
     public IEnumerator AnimPanelCoroutine(bool isEnable)
@@ -35,7 +34,6 @@ public class CanvasAnimation : MonoBehaviour
         bool isOnAnim = true;
         Vector2 starPos = rectTransform.anchoredPosition;
         Vector2 endPos = Vector2.zero;
-
         if (!isEnable)
         {
             endPos = new Vector2(rectTransform.rect.width, rectTransform.anchoredPosition.y);
@@ -45,7 +43,6 @@ public class CanvasAnimation : MonoBehaviour
                 yield return new WaitForSeconds(enableObjectsTime);
             }
         }
-
         float lerp = 0;
         float startTime = Time.time;
         while (isOnAnim)
@@ -57,7 +54,6 @@ public class CanvasAnimation : MonoBehaviour
         }
         rectTransform.anchoredPosition = endPos;
         isAnim = false;
-
         if (isEnable)
         {
             foreach (GameObject item in objectsOnPanel)

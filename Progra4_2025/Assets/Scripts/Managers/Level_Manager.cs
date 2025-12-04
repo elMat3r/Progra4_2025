@@ -1,11 +1,9 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
 public class Level_Manager : MonoBehaviour
 {
     public static Level_Manager Instance;
     [SerializeField] Score_Manager scoreManager;
-
     private void Awake()
     {
         if (Instance == null)

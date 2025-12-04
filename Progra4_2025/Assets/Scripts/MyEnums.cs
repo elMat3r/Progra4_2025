@@ -8,7 +8,6 @@ public enum TankPieceType
     GunConnector,
     Projectile
 }
-
 public enum StatType
 {
     Spd,
@@ -18,5 +17,3 @@ public enum StatType
     Life,
     BulletSpd,
 }
-
-

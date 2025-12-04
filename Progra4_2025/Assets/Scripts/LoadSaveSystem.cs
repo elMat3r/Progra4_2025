@@ -7,9 +7,7 @@ public class LoadSaveSystem
     public void LoadPlayerInfo(Action<PlayerDataInfo> onEndLoadData)
     {
         string json = PlayerPrefs.GetString(playerInfoDataKey);
-        
         PlayerDataInfo loadData = JsonUtility.FromJson<PlayerDataInfo>(json);
-
         PlayFabLogin playFab = new PlayFabLogin();
         playFab.LoadDataInfo(playerInfoDataKey, (data, result) =>
         {

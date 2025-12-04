@@ -4,7 +4,6 @@ public class Enemy_Spawner : MonoBehaviour
 {
     [Header("Enemy Settings")]
     public GameObject enemyPrefab;
-
     [Header("Spawn Settings")]
     public Transform[] spawnPoints;
     public float spawnDelay = 5f;
@@ -24,7 +23,7 @@ public class Enemy_Spawner : MonoBehaviour
     {
         if (enemyPrefab == null || spawnPoints.Length == 0)
         {
-            Debug.LogWarning("Falta el prefab o los puntos de spawn.");
+            //Debug.LogWarning("Falta el prefab o los puntos de spawn.");
             return;
         }
         Transform randomPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];

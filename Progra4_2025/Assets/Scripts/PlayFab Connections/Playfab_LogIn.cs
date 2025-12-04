@@ -82,7 +82,6 @@ public class PlayFabLogin
         };
         PlayFabClientAPI.LoginWithCustomID(request, OnLoginSuccess /*action event*/, OnLoginFailure /*funcion si es que no funciona*/);
     }
-
     //-----------------------Recovery Account----------------------
     private void OnRequestSuccess(SendAccountRecoveryEmailResult result)
     {

@@ -5,13 +5,11 @@ public class Movement : MonoBehaviour
     [Header("InputSystem")]
     public InputActionAsset inputActions;
     private InputAction m_moveAction;
-
     [Header("Movimiento")]
     private Vector2 m_moveAim;
     private Rigidbody2D m_Rigidbody;
     public float moveSpd;
     public float rotateSpd;
-
     private void OnEnable()
     {
         inputActions.FindActionMap("Player").Enable();
