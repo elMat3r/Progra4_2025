@@ -28,10 +28,6 @@ public class Enemy_Detection : MonoBehaviour
     void DetectarObjetivo()
     {
         Collider2D[] objetivos = Physics2D.OverlapCircleAll(transform.position, radioApuntar, detectionLayer);
-        if (objetivos.Length > 0)
-        {
-            Debug.Log($"{objetivos.Length} enemigo(s) detectado(s) dentro del radio de apuntar.");
-        }
         Transform objetivoMasCercano = null;
         float distanciaMasCercana = Mathf.Infinity;
         foreach (Collider2D col in objetivos)
@@ -42,13 +38,6 @@ public class Enemy_Detection : MonoBehaviour
                 distanciaMasCercana = distancia;
                 objetivoMasCercano = col.transform;
             }
-        }
-        if (objetivoMasCercano != objetivoActual)
-        {
-            if (objetivoMasCercano != null)
-                Debug.Log($"Nuevo objetivo detectado: {objetivoMasCercano.name}");
-            else
-                Debug.Log("Sin objetivo en el radio de apuntar.");
         }
         objetivoActual = objetivoMasCercano;
     }
@@ -66,7 +55,6 @@ public class Enemy_Detection : MonoBehaviour
     void Disparar()
     {
         if (prefabBullet == null || spawnBullet == null) return;
-        Debug.Log($" Disparando hacia: {objetivoActual.name}");
         GameObject proyectil = Instantiate(prefabBullet, spawnBullet.position, transform.rotation);
         Rigidbody2D rb = proyectil.GetComponent<Rigidbody2D>();
         if (rb != null)

@@ -541,10 +541,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
-  stopDistance: 8.94
+  stopDistance: 9
   rotationSpeed: 180
   rotationOffset: 0
-  detectionRadius: 5.48
+  detectionRadius: 79.1
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -684,9 +684,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2726bcd631e56364b9ee374413a51a4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radioApuntar: 10
-  radioAtaque: 9
-  tiempoEntreDisparos: 1
+  radioApuntar: 79.1
+  radioAtaque: 54.69
+  tiempoEntreDisparos: 3
   powerBullet: 7
   spawnBullet: {fileID: 1121943432063861159}
   prefabBullet: {fileID: 1890163069791570306, guid: a48e2d98841a47841a807c54adaca273, type: 3}
