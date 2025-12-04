@@ -49,7 +49,6 @@ public class LogIn_Manager : MonoBehaviour
                 default:
                     break;
             }
-
         }
         else
         {
@@ -122,6 +121,7 @@ public class LogIn_Manager : MonoBehaviour
     public void BackButton()
     {
         SetPanel(LoginPanelType.Login);
+        SetBlockPanel("", false);
     }
 }
 public enum LoginPanelType
